@@ -4,8 +4,12 @@ import com.woowacourse.dsgram.service.dto.user.AuthUserRequest;
 import com.woowacourse.dsgram.service.dto.user.SignUpUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -14,6 +18,7 @@ public class AbstractControllerTest {
 
     @Autowired
     WebTestClient webTestClient;
+
 
     String getCookie(AuthUserRequest authUserRequest) {
         return webTestClient.post().uri("/api/users/login")
@@ -41,6 +46,6 @@ public class AbstractControllerTest {
         response.expectStatus().isBadRequest()
                 .expectBody()
                 .jsonPath("$.message").isEqualTo(message);
-
     }
+
 }

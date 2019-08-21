@@ -20,7 +20,7 @@ public class UserProfileImage {
 
     @Column(nullable = false)
     private String filePath;
-
+    
     public UserProfileImage(long id, String fileName, String filePath) {
         this.id = id;
         this.fileName = fileName;
