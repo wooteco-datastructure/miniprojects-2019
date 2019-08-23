@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
+
+import static java.util.stream.Collectors.*;
 
 @Service
 public class ArticleService {
@@ -39,10 +41,8 @@ public class ArticleService {
                 .fileInfo(fileInfo)
                 .author(userService.findUserById(loggedInUser.getId()))
                 .build();
-        hashTagService.saveHashTags(
-                article.getKeyword().stream()
-                        .map(keyword -> new HashTag(keyword, article))
-                        .collect(Collectors.toList()));
+
+        hashTagService.saveHashTags(article);
 
         return articleRepository.save(article);
     }
@@ -60,9 +60,11 @@ public class ArticleService {
     }
 
     @Transactional
-    public Article update(long articleId, ArticleEditRequest articleEditRequest, LoggedInUser loggedInUser) {
+    public void update(long articleId, ArticleEditRequest articleEditRequest, LoggedInUser loggedInUser) {
         Article article = findById(articleId);
-        return article.update(articleEditRequest.getContents(), loggedInUser.getId());
+        Article updatedArticle = article.update(articleEditRequest.getContents(), loggedInUser.getId());
+
+        hashTagService.update(updatedArticle);
     }
 
     @Transactional
