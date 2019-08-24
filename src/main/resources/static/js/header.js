@@ -96,9 +96,11 @@ HEADER_APP = (() => {
             contents.forEach(content => {
                 const contentsHtml = content.innerHTML;
 
-                let tag = contentsHtml.match(regex);
+                const tag = contentsHtml.match(regex);
                 tag.forEach(tag => {
-                    content.innerHTML = content.innerHTML.replace(new RegExp(`\\${tag}\\b`, 'g'), `<a href="/tags/${tag.substr(1)}">${tag}</a>`)
+                    // TODO 오상씨.. 이거 외않되?
+                    const tagRegex = new RegExp(/[가-힣]/).test(tag.substr(-1)) ? new RegExp(`\\${tag}\\B`, 'g') : new RegExp(`\\${tag}\\b`, 'g');
+                    content.innerHTML = content.innerHTML.replace(tagRegex, `<a href="/tags/${tag.substr(1)}">${tag}</a>`);
                 });
             });
         };
