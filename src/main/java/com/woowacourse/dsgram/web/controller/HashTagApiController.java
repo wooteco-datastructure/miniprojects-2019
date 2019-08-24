@@ -18,6 +18,6 @@ public class HashTagApiController {
 
     @GetMapping
     public ResponseEntity<HashTagResponse> searchHashTag(String query) {
-        return ResponseEntity.ok(hashTagService.findAll(query));
+        return ResponseEntity.ok(hashTagService.findAllWithCountByQuery(query));
     }
 }

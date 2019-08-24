@@ -4,6 +4,7 @@ import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.HashTag;
 import com.woowacourse.dsgram.domain.repository.HashTagRepository;
 import com.woowacourse.dsgram.service.dto.HashTagResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Service
+@Slf4j
 public class HashTagService {
     private final HashTagRepository hashTagRepository;
 
@@ -33,10 +35,8 @@ public class HashTagService {
                 .collect(toList());
     }
 
-    public HashTagResponse findAll(String query) {
-        Page<HashTag> hashTags = hashTagRepository.findAllDistinctByKeywordIgnoreCaseContaining(query,
-                PageRequest.of(0, 10, Sort.by("id").descending()));
-        return new HashTagResponse(hashTags.getContent());
+    public HashTagResponse findAllWithCountByQuery(String query) {
+        return new HashTagResponse(hashTagRepository.findResult(query));
     }
 
     private void deleteAllByArticleId(long articleId) {
