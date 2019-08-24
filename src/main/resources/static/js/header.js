@@ -84,7 +84,7 @@ HEADER_APP = (() => {
             event.preventDefault();
             document.querySelector('.search-box').classList.toggle('active');
             document.querySelector('.search-input').classList.toggle('active');
-            document.querySelector('.search-input input').focus()
+            document.querySelector('.search-input input').focus();
         };
 
         const applyHashTag = () => {
@@ -96,7 +96,7 @@ HEADER_APP = (() => {
 
                 let tag = contentsHtml.match(regex);
                 tag.forEach(tag => {
-                    content.innerHTML = content.innerHTML.replace(tag, `<a href="${tag}">${tag}</a>`)
+                    content.innerHTML = content.innerHTML.replace(new RegExp(`\\${tag}\\b`, 'g'), `<a href="${tag}">${tag}</a>`)
                 });
             });
         };
