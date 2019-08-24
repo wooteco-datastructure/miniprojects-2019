@@ -56,7 +56,7 @@ HEADER_APP = (() => {
                                     </div>
                                 </li>`;
 
-                            searchResult.insertAdjacentHTML('afterbegin', searchResultTemplate);
+                            searchResult.insertAdjacentHTML('beforeend', searchResultTemplate);
                         });
 
                         toggleSearchList();
@@ -98,7 +98,7 @@ HEADER_APP = (() => {
 
                 let tag = contentsHtml.match(regex);
                 tag.forEach(tag => {
-                    content.innerHTML = content.innerHTML.replace(new RegExp(`\\${tag}\\b`, 'g'), `<a href="/tags/${tag}">${tag}</a>`)
+                    content.innerHTML = content.innerHTML.replace(new RegExp(`\\${tag}\\b`, 'g'), `<a href="/tags/${tag.substr(1)}">${tag}</a>`)
                 });
             });
         };
@@ -117,6 +117,7 @@ HEADER_APP = (() => {
 
     return {
         init: init,
+        HeaderService: HeaderService
     }
 })();
 

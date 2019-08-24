@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/default"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block layout:fragment="head">
+    <title>woostagram</title>
+</th:block>
+<th:block layout:fragment="content">
+    <div>
+        <div class="page-container mrg-top-120">
+            <div class="main-content">
+                <div class="container-fluid max-width-lg mx-auto">
+                    <div class="row">
+                        <div class="col-lg-7 mx-auto">
+                            <button type="button" id="write-article-button" class="btn btn-outline-primary"
+                                    accesskey="w">피드 작성
+                            </button>
+                            <div>
+                                검색어 : <p id="query" th:text="${query}"></p>
+                            </div>
+                            <div id="cards">
+
+                            </div>
+                            <div id="end"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/fetchApi.js"></script>
+    <script src="/js/header.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/fileLoadApi.js"></script>
+    <script src="/js/card.js"></script>
+    <script src="/js/search-result.js"></script>
+</th:block>
+</html>
