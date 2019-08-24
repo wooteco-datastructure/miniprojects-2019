@@ -44,12 +44,14 @@ HEADER_APP = (() => {
                                             <p class="text-gray font-size-25 mrg-btm-0">#</p>
                                         </div>
                                         <div class="col-8">
-                                            <div class="row">
-                                                <a href="" class="text-dark">${hashTag.keyword}</a>
-                                            </div>
-                                            <div class="row text-gray">
-                                                게시물 ${Intl.NumberFormat.call().format(hashTag.count)}
-                                            </div>
+                                            <a href="/tags/${hashTag.keyword.substr(1)}" class="text-dark">
+                                                <div class="row">
+                                                    ${hashTag.keyword}
+                                                </div>
+                                                <div class="row text-gray">
+                                                    게시물 ${Intl.NumberFormat.call().format(hashTag.count)}
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                 </li>`;
@@ -77,7 +79,7 @@ HEADER_APP = (() => {
             const query = event.target.value
                 .replace(new RegExp('#', 'gi'), ''); // TODO 사람 검색과 분기 처리!!
 
-            connector.fetchTemplateWithoutBody('/api/hashTag?query=' + query, connector.GET, getSearchResult)
+            connector.fetchTemplateWithoutBody(`/api/hashTag?query=${query}`, connector.GET, getSearchResult)
         };
 
         const toggleSearchInput = event => {
@@ -96,7 +98,7 @@ HEADER_APP = (() => {
 
                 let tag = contentsHtml.match(regex);
                 tag.forEach(tag => {
-                    content.innerHTML = content.innerHTML.replace(new RegExp(`\\${tag}\\b`, 'g'), `<a href="${tag}">${tag}</a>`)
+                    content.innerHTML = content.innerHTML.replace(new RegExp(`\\${tag}\\b`, 'g'), `<a href="/tags/${tag}">${tag}</a>`)
                 });
             });
         };
