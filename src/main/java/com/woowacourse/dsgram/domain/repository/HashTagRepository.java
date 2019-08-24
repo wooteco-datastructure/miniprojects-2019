@@ -2,6 +2,8 @@ package com.woowacourse.dsgram.domain.repository;
 
 import com.woowacourse.dsgram.domain.HashTag;
 import com.woowacourse.dsgram.domain.vo.HashTagSearchResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +19,6 @@ public interface HashTagRepository extends JpaRepository<HashTag, Long> {
 
     @Query(FIND_ALL_BY_QUERY)
     List<HashTagSearchResult> findResult(@Param("query") String query);
+
+    Page<HashTag> findAllByKeywordContaining(Pageable pageable, String keyword);
 }

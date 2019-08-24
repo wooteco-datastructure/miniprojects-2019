@@ -2,7 +2,6 @@ package com.woowacourse.dsgram.service;
 
 import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.FileInfo;
-import com.woowacourse.dsgram.domain.HashTag;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.ArticleRequest;
@@ -13,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Set;
-
-import static java.util.stream.Collectors.*;
 
 @Service
 public class ArticleService {
