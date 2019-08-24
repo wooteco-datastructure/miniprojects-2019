@@ -31,14 +31,18 @@ const SEARCH_APP = (() => {
     const SearchService = function () {
         const headerService = HEADER_APP.HeaderService();
         const connector = FETCH_APP.FetchApi();
+        const fileLoader = FILE_LOAD_APP.FileLoadService();
 
         const query = document.getElementById('query').innerText;
+        const count = document.getElementById('count');
         const cards = document.getElementById('cards');
 
         const loadArticles = page => {
             const addArticle = response => {
                 response.json()
                     .then(data => {
+                        count.innerText = data.totalElements;
+
                         data.content.forEach(hashTag => {
                             const article = hashTag.article;
 
@@ -140,6 +144,8 @@ const SEARCH_APP = (() => {
                                         </div>
                                     </div>
                                 </div>`;
+
+                            fileLoader.loadMediaFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`);
 
                             cards.insertAdjacentHTML('beforeend', cardTemplate);
 
