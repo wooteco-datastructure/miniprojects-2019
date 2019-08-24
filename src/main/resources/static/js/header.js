@@ -3,7 +3,7 @@ HEADER_APP = (() => {
         const headerService = new HeaderService();
 
         const search = () => {
-            const searchInput = document.querySelector(".search-input input");
+            const searchInput = document.querySelector('.search-input input');
             searchInput ? searchInput.addEventListener('keyup', headerService.searchHashTag) : undefined;
         };
 
@@ -30,17 +30,30 @@ HEADER_APP = (() => {
         const connector = FETCH_APP.FetchApi();
 
         const searchHashTag = event => {
-            const searchResult = document.querySelector("#search-result");
+            const searchResult = document.getElementById('search-result');
 
             const getSearchResult = response => {
                 response.json()
                     .then(data => {
                         removeChildElements();
-                        data["hashTags"].forEach(hashTag => {
+                        data['hashTags'].forEach(hashTag => {
                             const searchResultTemplate =
                                 `<li class="search-result-item">
-                                    <a href="" class="text-dark">${hashTag.keyword}</a>
+                                    <div class="row align-items-center margin-10">
+                                        <div class="col-2 text-center">
+                                            <p class="text-gray font-size-25 mrg-btm-0">#</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <a href="" class="text-dark">${hashTag.keyword}</a>
+                                            </div>
+                                            <div class="row text-gray">
+                                                게시물 ${Intl.NumberFormat.call().format(hashTag.count)}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>`;
+
                             searchResult.insertAdjacentHTML('afterbegin', searchResultTemplate);
                         });
 
@@ -48,21 +61,21 @@ HEADER_APP = (() => {
                     });
 
                 const removeChildElements = () => {
-                    searchResult.innerHTML = "";
+                    searchResult.innerHTML = '';
                 };
 
                 const toggleSearchList = () => {
-                    const advancedSearch = document.querySelector(".advanced-search");
+                    const advancedSearch = document.querySelector('.advanced-search');
                     if (query.length > 0 && searchResult.childElementCount > 0) {
                         advancedSearch.classList.add('active');
                         return;
                     }
-                    advancedSearch.classList.remove("active")
+                    advancedSearch.classList.remove('active');
                 };
             };
 
             const query = event.target.value
-                .replace(new RegExp('#', "gi"), ''); // TODO 사람 검색과 분기 처리!!
+                .replace(new RegExp('#', 'gi'), ''); // TODO 사람 검색과 분기 처리!!
 
             connector.fetchTemplateWithoutBody('/api/hashTag?query=' + query, connector.GET, getSearchResult)
         };
