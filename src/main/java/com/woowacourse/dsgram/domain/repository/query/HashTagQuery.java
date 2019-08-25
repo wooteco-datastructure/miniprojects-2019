@@ -6,5 +6,5 @@ public class HashTagQuery {
                     "FROM " +
                     "HashTag h " +
                     "GROUP BY h.keyword " +
-                    "HAVING h.keyword like %:query% ORDER BY 2";
+                    "HAVING h.keyword like %:query% ORDER BY 2 DESC";
 }
