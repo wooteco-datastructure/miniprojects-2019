@@ -117,4 +117,8 @@ public class UserService {
         FileInfo fileInfo = user.getFileInfo();
         return fileService.readFileByFileInfo(fileInfo);
     }
+
+    public User findByNickName(String nickName) {
+        return userRepository.findByNickName(nickName).orElseThrow(NotFoundUserException::new);
+    }
 }

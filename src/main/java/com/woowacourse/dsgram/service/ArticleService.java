@@ -75,4 +75,9 @@ public class ArticleService {
     public byte[] findFileById(long articleId) {
         return fileService.readFileByFileInfo(findById(articleId).getFileInfo());
     }
+
+    public List<Article> findArticlesByAuthor(String nickName) {
+        userService.findByNickName(nickName);
+        return articleRepository.findAllByAuthorNickName(nickName);
+    }
 }
