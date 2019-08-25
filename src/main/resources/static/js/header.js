@@ -28,6 +28,7 @@ HEADER_APP = (() => {
 
     const HeaderService = function () {
         const connector = FETCH_APP.FetchApi();
+        const template = TEMPLATE_APP.TemplateService();
 
         const searchHashTag = event => {
             const searchResult = document.getElementById('search-result');
@@ -37,26 +38,8 @@ HEADER_APP = (() => {
                     .then(data => {
                         removeChildElements();
                         data['hashTags'].forEach(hashTag => {
-                            const searchResultTemplate =
-                                `<li class="search-result-item">
-                                    <div class="row align-items-center margin-10">
-                                        <div class="col-2 text-center">
-                                            <p class="text-gray font-size-25 mrg-btm-0">#</p>
-                                        </div>
-                                        <div class="col-8">
-                                            <a href="/tags/${hashTag.keyword.substr(1)}" class="text-dark">
-                                                <div class="row">
-                                                    ${hashTag.keyword}
-                                                </div>
-                                                <div class="row text-gray">
-                                                    게시물 ${Intl.NumberFormat.call().format(hashTag.count)}
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>`;
-
-                            searchResult.insertAdjacentHTML('beforeend', searchResultTemplate);
+                            // const a = searchResultTemplate;
+                            searchResult.insertAdjacentHTML('beforeend', template.searchResult(hashTag));
                         });
 
                         toggleSearchList();
