@@ -21,31 +21,37 @@
                                 </div>
                                 <div class="user-info items">
                                     <div th:if="${feedUser == session.sessionUser.nickName}">
-                                        <span class="user-id" th:text="${session.sessionUser.nickName}"></span>
+                                        <span class="user-id mrg-right-10" th:text="${session.sessionUser.nickName}"></span>
                                         <!--                                                // TODO 프로필 편집 두군데..? 일단 아래로 설정? -->
-                                        <input type="button" value="프로필 편집">
-                                        <div class="dropdown">
-                                            <a class="pointer active dropdown-toggle" data-toggle="dropdown"
-                                               aria-haspopup="true" aria-expanded="false">
-                                                <i class="ti-settings font-size-25"></i>
-                                            </a>
-                                            <!--Drop-down-->
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" th:href="@{/users/{userId}/edit(userId=${session.sessionUser.id})}">회원정보 수정</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="/logout">로그아웃</a>
+                                        <button class="btn btn-default text-bold mrg-right-10">프로필 편집</button>
+                                        <span>
+                                            <div class="dropdown">
+                                                <a class="pointer active dropdown-toggle" data-toggle="dropdown"
+                                                   aria-haspopup="true" aria-expanded="false">
+                                                    <i class="ti-settings font-size-25"></i>
+                                                </a>
+                                                <!--Drop-down-->
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                       th:href="@{/users/{userId}/edit(userId=${session.sessionUser.id})}">회원정보 수정</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="/logout">로그아웃</a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </span>
                                     </div>
                                     <div th:if="${feedUser != session.sessionUser.nickName}">
-                                        <span class="user-id" th:text="${feedUser}"></span>
+                                        <span class="user-id mrg-right-10" th:text="${feedUser}"></span>
                                         <button class="btn btn-primary" type="button">팔로우</button>
                                     </div>
                                     <br/>
                                     <div>
-                                        <span>게시물283</span>
-                                        <span>팔로워2</span>
-                                        <span>팔로우501</span>
+                                        <span>게시물</span>
+                                        <span class="text-bold mrg-right-20" th:text="${articles.size()}"></span>
+                                        <span>팔로워</span>
+                                        <span class="text-bold mrg-right-20">100</span>
+                                        <span>팔로우</span>
+                                        <span class="text-bold mrg-right-20">120</span>
                                     </div>
                                     <br/><br/>
                                     <div>
@@ -82,7 +88,7 @@
             </div>
         </div>
     </div>
-<!--    // TODO 이부분 index랑 겹칩니다.-->
+    <!--    // TODO 이부분 index랑 겹칩니다.-->
     <script src="/js/article.js"></script>
     <script src="/js/fetchApi.js"></script>
     <script src="/js/fileLoadApi.js"></script>
