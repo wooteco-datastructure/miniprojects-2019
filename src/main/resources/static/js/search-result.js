@@ -4,6 +4,10 @@ const SEARCH_APP = (() => {
         const searchService = new SearchService();
 
         const loadArticleByObserve = () => {
+            const end = document.getElementById('end');
+            if (!end) {
+                return;
+            }
             let page = 0;
             const io = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -14,7 +18,7 @@ const SEARCH_APP = (() => {
                 });
             });
 
-            io.observe(document.getElementById('end'));
+            io.observe(end);
         };
 
         const init = () => {
@@ -32,11 +36,12 @@ const SEARCH_APP = (() => {
         const fileLoader = FILE_LOAD_APP.FileLoadService();
         const template = TEMPLATE_APP.TemplateService();
 
-        const query = document.getElementById('query').innerText;
+        const queryInput = document.getElementById('query');
         const count = document.getElementById('count');
         const cards = document.getElementById('cards');
 
         const loadArticles = page => {
+            const query = queryInput.innerText;
             const addArticle = response => {
                 response.json()
                     .then(data => {
