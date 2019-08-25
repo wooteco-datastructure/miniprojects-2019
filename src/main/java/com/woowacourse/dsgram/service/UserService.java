@@ -43,6 +43,7 @@ public class UserService {
         }
     }
 
+    // TODO: 2019-08-25 이거 EditUserRequest로 될 것 같은..?
     public UserDto findUserInfoById(long userId, LoggedInUser loggedInUser) {
         User user = findUserById(userId);
         user.checkEmail(loggedInUser.getEmail());

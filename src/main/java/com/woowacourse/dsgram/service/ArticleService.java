@@ -76,7 +76,7 @@ public class ArticleService {
         return fileService.readFileByFileInfo(findById(articleId).getFileInfo());
     }
 
-    public List<Article> findArticlesByAuthor(String nickName) {
+    public List<Article> findArticlesByAuthorNickName(String nickName) {
         userService.findByNickName(nickName);
         return articleRepository.findAllByAuthorNickName(nickName);
     }

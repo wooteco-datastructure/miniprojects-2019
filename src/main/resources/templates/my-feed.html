@@ -20,11 +20,12 @@
                                          alt="">
                                 </div>
                                 <div class="user-info items">
-                                    <div th:if="${feedUser == session.sessionUser.nickName}">
-                                        <span class="user-id mrg-right-10" th:text="${session.sessionUser.nickName}"></span>
+                                    <div>
+                                        <span class="user-id mrg-right-10" th:text="${feedInfo.user.nickName}"></span>
                                         <!--                                                // TODO 프로필 편집 두군데..? 일단 아래로 설정? -->
-                                        <button class="btn btn-default text-bold mrg-right-10">프로필 편집</button>
-                                        <span>
+                                        <span th:if="${feedInfo.user.id == session.sessionUser.id}">
+                                            <button class="btn btn-default text-bold mrg-right-10">프로필 편집</button>
+                                            <span>
                                             <div class="dropdown">
                                                 <a class="pointer active dropdown-toggle" data-toggle="dropdown"
                                                    aria-haspopup="true" aria-expanded="false">
@@ -38,24 +39,26 @@
                                                     <a class="dropdown-item" href="/logout">로그아웃</a>
                                                 </div>
                                             </div>
+                                            </span>
+                                        </span>
+                                        <span th:if="${feedInfo.user.id != session.sessionUser.id}">
+                                            <button class="btn btn-primary" type="button">팔로우</button>
                                         </span>
                                     </div>
-                                    <div th:if="${feedUser != session.sessionUser.nickName}">
-                                        <span class="user-id mrg-right-10" th:text="${feedUser}"></span>
-                                        <button class="btn btn-primary" type="button">팔로우</button>
-                                    </div>
+
                                     <br/>
                                     <div>
                                         <span>게시물</span>
-                                        <span class="text-bold mrg-right-20" th:text="${articles.size()}"></span>
+                                        <span class="text-bold mrg-right-20"
+                                              th:text="${feedInfo.articles.size()}"></span>
                                         <span>팔로워</span>
-                                        <span class="text-bold mrg-right-20">100</span>
+                                        <span class="text-bold mrg-right-20" th:text="${feedInfo.followers.size()}"></span>
                                         <span>팔로우</span>
-                                        <span class="text-bold mrg-right-20">120</span>
+                                        <span class="text-bold mrg-right-20" th:text="${feedInfo.followings.size()}"></span>
                                     </div>
                                     <br/><br/>
                                     <div>
-                                        <span class="user-name" th:text="${session.sessionUser.userName}"></span>
+                                        <span class="user-name" th:text="${feedInfo.user.userName}"></span>
                                     </div>
                                 </div>
                             </div>
