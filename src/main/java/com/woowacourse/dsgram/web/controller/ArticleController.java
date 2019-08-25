@@ -38,6 +38,7 @@ public class ArticleController {
     public String showMyFeed(@PathVariable String nickName, Model model) {
         List<Article> articles = articleService.findArticlesByAuthor(nickName);
         model.addAttribute("articles", articles);
+        model.addAttribute("feedUser",nickName);
         return "my-feed";
     }
 }

@@ -20,7 +20,7 @@
                                          alt="">
                                 </div>
                                 <div class="user-info items">
-                                    <div>
+                                    <div th:if="${feedUser == session.sessionUser.nickName}">
                                         <span class="user-id" th:text="${session.sessionUser.nickName}"></span>
                                         <!--                                                // TODO 프로필 편집 두군데..? 일단 아래로 설정? -->
                                         <input type="button" value="프로필 편집">
@@ -36,6 +36,10 @@
                                                 <a class="dropdown-item" href="/logout">로그아웃</a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div th:if="${feedUser != session.sessionUser.nickName}">
+                                        <span class="user-id" th:text="${feedUser}"></span>
+                                        <button class="btn btn-primary" type="button">팔로우</button>
                                     </div>
                                     <br/>
                                     <div>
