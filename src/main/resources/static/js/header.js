@@ -91,14 +91,7 @@ HEADER_APP = (() => {
             const regex = new RegExp('#([0-9a-zA-Z가-힣_]{2,30})', 'g');
 
             contents.forEach(content => {
-                const contentsHtml = content.innerHTML;
-
-                const tag = contentsHtml.match(regex);
-                tag.forEach(tag => {
-                    // TODO 오상씨.. 이거 외않되?
-                    const tagRegex = new RegExp(/[가-힣]/).test(tag.substr(-1)) ? new RegExp(`\\${tag}\\B`, 'g') : new RegExp(`\\${tag}\\b`, 'g');
-                    content.innerHTML = content.innerHTML.replace(tagRegex, `<a href="/tags/${tag.substr(1)}">${tag}</a>`);
-                });
+                content.innerHTML = content.innerHTML.replace(regex, '<a href="/tags/$1">#$1</a>')
             });
         };
 
