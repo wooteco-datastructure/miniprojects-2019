@@ -37,6 +37,8 @@ const FILE_LOAD_APP = (() => {
             }
         };
 
+
+        //todo setSrcAttribute와 중복!!
         const setProfileSrcAttribute = (url, fileName, articleId) => {
             const articleImage = document.getElementById('thumb-img-' + articleId);
             articleImage.style.display = "block";
@@ -62,6 +64,8 @@ const FILE_LOAD_APP = (() => {
             connector.fetchTemplateWithoutBody(`/api/articles/${id}/file`, connector.GET, loadFile);
         };
 
+
+        //todo loadMediaFile과 중복!
         const loadProfileImageFile = (fileLoader, fileName, articleId, userId) => {
             const connector = FETCH_APP.FetchApi();
 

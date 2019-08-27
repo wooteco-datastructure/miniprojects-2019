@@ -19,6 +19,8 @@ const ARTICLE_APP = (() => {
             imageInput ? imageInput.addEventListener("change", articleService.changeImageJustOnFront) : undefined;
         };
 
+
+        //todo search-result와 중복!!
         const loadArticleByObserve = () => {
             const end = document.getElementById('end');
             if (!end) {
@@ -102,6 +104,7 @@ const ARTICLE_APP = (() => {
             alert(`링크가 복사되었습니다. ${copiedUrl}`);
         };
 
+        // TODO search-result.js와 중복!!
         const loadArticles = page => {
             const addArticle = response => {
                 response.json()

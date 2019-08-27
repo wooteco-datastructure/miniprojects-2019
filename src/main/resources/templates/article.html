@@ -29,6 +29,7 @@
     </div>
     <script src="/js/fileLoadApi.js"></script>
     <script th:inline="javascript">
+        // todo: profile image가 없으면 article.author.fileinfo.fileName에서 에러 남
         const fileLoad = function () {
             const fileLoader = FILE_LOAD_APP.FileLoadService();
             fileLoader.loadProfileImageFile(fileLoader, [[${article.author.fileInfo.fileName}]],
