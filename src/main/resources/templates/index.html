@@ -82,20 +82,7 @@
             </div>
         </div>
     </div>
-    <script src="/js/fetchApi.js"></script>
-    <script src="/js/fileLoadApi.js"></script>
-    <script th:inline="javascript">
-        // TODO 무한 스크롤로 변경 시 이동 및 위 fetchApi, fileLoadApi 제거
-        const articles = [[${articles}]];
 
-        for (let i = 0; i < articles.length; i++) {
-            const articleId = articles[i].id;
-            const articleFileName = articles[i].fileInfo.fileName;
 
-            const fileLoader = FILE_LOAD_APP.FileLoadService();
-
-            fileLoader.loadMediaFile(fileLoader, articleFileName, articleId);
-        }
-    </script>
 </th:block>
 </html>
