@@ -5,7 +5,7 @@
             <img class="thumb-img img-circle" src="/images/default/default_profile.png"
                  alt="">
             <div class="info">
-                <a href="" th:text="${article.author.nickName}"
+                <a href="" th:text="${article.nickName}"
                    class="title no-pdd-vertical text-bold inline-block font-size-15"></a>
             </div>
         </li>
@@ -61,8 +61,7 @@
 <div class="feedback-status-container pdd-horizon-15">
     <img class="mini-profile-img" src="/images/default/eastjun_profile.jpg">
     <p class="no-mrg pdd-left-5 d-inline-block">
-        <span class="text-bold">eastjun</span>님 외 <span class="text-bold">37</span>명이
-        좋아합니다.
+        <span class="text-bold" th:text="${article.countOfLikes}"></span><span>명이 좋아합니다.</span>
     </p>
 </div>
 <div th:id="'article-contents-' + ${article.id}" class="feed-contents pdd-left-15">

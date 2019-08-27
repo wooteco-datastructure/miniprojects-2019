@@ -32,7 +32,7 @@ TEMPLATE_APP = (() => {
                                                      alt="">
                                                 <div class="info">
                                                     <a href="" class="title no-pdd-vertical text-bold inline-block font-size-15">
-                                                        ${article.author.nickName}</a>
+                                                        ${article.nickName}</a>
                                                 </div>
                                             </li>
                                             <a class="pointer absolute top-10 right-0" data-toggle="dropdown"

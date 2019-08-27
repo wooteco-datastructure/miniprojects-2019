@@ -31,7 +31,7 @@
     <script th:inline="javascript">
         const fileLoad = function () {
             const fileLoader = FILE_LOAD_APP.FileLoadService();
-            fileLoader.loadMediaFile(fileLoader, [[${article.fileInfo.fileName}]], [[${article.id}]]);
+            fileLoader.loadMediaFile(fileLoader, [[${article.fileInfo.fileName}]], [[${article.articleId}]]);
         };
         window.addEventListener('DOMContentLoaded', fileLoad);
     </script>

@@ -1,7 +1,7 @@
 package com.woowacourse.dsgram.web.controller;
 
-import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.service.ArticleService;
+import com.woowacourse.dsgram.service.dto.ArticleInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +25,8 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public String showArticle(@PathVariable long articleId, Model model) {
-        Article article = articleService.findById(articleId);
-        model.addAttribute("article", article);
+        ArticleInfo articleInfo = articleService.findArticleInfoById(articleId);
+        model.addAttribute("article", articleInfo);
         return "article";
     }
 }

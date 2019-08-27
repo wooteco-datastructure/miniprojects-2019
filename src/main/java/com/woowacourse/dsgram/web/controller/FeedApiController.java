@@ -1,7 +1,7 @@
 package com.woowacourse.dsgram.web.controller;
 
-import com.woowacourse.dsgram.service.dto.FollowInfo;
 import com.woowacourse.dsgram.service.dto.FollowRequest;
+import com.woowacourse.dsgram.service.dto.UserInfo;
 import com.woowacourse.dsgram.service.facade.Facade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +24,14 @@ public class FeedApiController {
     }
 
     @GetMapping("/followers/{nickName}")
-    public ResponseEntity<List<FollowInfo>> getFollowers(@PathVariable String nickName) {
-        List<FollowInfo> followers = facade.getFollowers(nickName);
+    public ResponseEntity<List<UserInfo>> getFollowers(@PathVariable String nickName) {
+        List<UserInfo> followers = facade.getFollowers(nickName);
         return ResponseEntity.ok(followers);
     }
 
     @GetMapping("/followings/{nickName}")
-    public ResponseEntity<List<FollowInfo>> getFollowings(@PathVariable String nickName) {
-        List<FollowInfo> followers = facade.getFollowings(nickName);
+    public ResponseEntity<List<UserInfo>> getFollowings(@PathVariable String nickName) {
+        List<UserInfo> followers = facade.getFollowings(nickName);
         return ResponseEntity.ok(followers);
     }
 }

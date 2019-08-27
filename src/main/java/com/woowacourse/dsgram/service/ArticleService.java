@@ -2,9 +2,13 @@ package com.woowacourse.dsgram.service;
 
 import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.FileInfo;
+import com.woowacourse.dsgram.domain.User;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
+import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
+import com.woowacourse.dsgram.service.dto.ArticleInfo;
 import com.woowacourse.dsgram.service.dto.ArticleRequest;
+import com.woowacourse.dsgram.service.dto.UserInfo;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
 import org.springframework.stereotype.Service;
@@ -18,18 +22,21 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final HashTagService hashTagService;
+    private final LikeService likeService;
     private final FileService fileService;
     private final UserService userService; // TODO: 빼고싶음
 
-    public ArticleService(ArticleRepository articleRepository, HashTagService hashTagService, FileService fileService, UserService userService) {
+    public ArticleService(ArticleRepository articleRepository, HashTagService hashTagService,
+                          LikeService likeService, FileService fileService, UserService userService) {
         this.articleRepository = articleRepository;
         this.hashTagService = hashTagService;
+        this.likeService = likeService;
         this.fileService = fileService;
         this.userService = userService;
     }
 
     @Transactional
-    public Article create(ArticleRequest articleRequest, LoggedInUser loggedInUser) {
+    public ArticleInfo create(ArticleRequest articleRequest, LoggedInUser loggedInUser) {
         FileInfo fileInfo = fileService.save(articleRequest.getFile(), new ArticleFileNamingStrategy());
 
         Article article = Article.builder()
@@ -39,8 +46,16 @@ public class ArticleService {
                 .build();
 
         hashTagService.saveHashTags(article);
+        articleRepository.save(article);
+        return ArticleAssembler.toArticleInfo(article, 0);
+    }
 
-        return articleRepository.save(article);
+    public ArticleInfo findArticleInfoById(long articleId) {
+        return ArticleAssembler.toArticleInfo(findById(articleId), getCountOfLike(articleId));
+    }
+
+    private long getCountOfLike(long articleId) {
+        return likeService.getCountOfLike(articleRepository.findById(articleId).orElseThrow(EntityNotFoundException::new));
     }
 
     @Transactional(readOnly = true)
@@ -77,5 +92,16 @@ public class ArticleService {
     public List<Article> findArticlesByAuthorNickName(String nickName) {
         userService.findByNickName(nickName);
         return articleRepository.findAllByAuthorNickName(nickName);
+    }
+
+    public void like(long articleId, long userId) {
+        Article article = articleRepository.findById(articleId).orElseThrow(EntityNotFoundException::new);
+        User user = userService.findUserById(userId);
+        likeService.like(article,user);
+    }
+
+    public List<UserInfo> findLikerListById(long articleId) {
+        Article article = articleRepository.findById(articleId).orElseThrow(EntityNotFoundException::new);
+        return likeService.findLikerList(article);
     }
 }
