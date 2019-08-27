@@ -19,10 +19,29 @@ const ARTICLE_APP = (() => {
             imageInput ? imageInput.addEventListener("change", articleService.changeImageJustOnFront) : undefined;
         };
 
+        const loadArticleByObserve = () => {
+            const end = document.getElementById('end');
+            if (!end) {
+                return;
+            }
+            let page = 0;
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    articleService.loadArticles(page++);
+                });
+            });
+
+            io.observe(end);
+        };
+
         const init = () => {
             saveArticle();
             writeArticle();
             showThumbnail();
+            loadArticleByObserve();
         };
 
         return {
@@ -31,6 +50,12 @@ const ARTICLE_APP = (() => {
     };
 
     const ArticleService = function () {
+        const connector = FETCH_APP.FetchApi();
+        const fileLoader = FILE_LOAD_APP.FileLoadService();
+        const template = TEMPLATE_APP.TemplateService();
+        const headerService = HEADER_APP.HeaderService();
+        const cards = document.getElementById('cards');
+
         const save = () => {
             const file = document.getElementById('file').value;
 
@@ -42,7 +67,6 @@ const ARTICLE_APP = (() => {
             const postForm = document.getElementById('save-form');
             const formData = new FormData(postForm);
 
-            const connector = FETCH_APP.FetchApi();
             const redirectToArticlePage = response => {
                 response.json().then(article => window.location.href = `/articles/${article.id}`);
             };
@@ -78,10 +102,26 @@ const ARTICLE_APP = (() => {
             alert(`링크가 복사되었습니다. ${copiedUrl}`);
         };
 
+        const loadArticles = page => {
+            const addArticle = response => {
+                response.json()
+                    .then(data => {
+                        data.content.forEach(article => {
+                            fileLoader.loadMediaFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`);
+                            cards.insertAdjacentHTML('beforeend', template.card(article));
+                        });
+                        headerService.applyHashTag();
+                    });
+            };
+
+            connector.fetchTemplateWithoutBody(`/api/articles?page=${page}`, connector.GET, addArticle);
+        };
+
         return {
             save: save,
             writeArticle: writeArticle,
-            changeImageJustOnFront: changeImageJustOnFront
+            changeImageJustOnFront: changeImageJustOnFront,
+            loadArticles: loadArticles
         }
     };
 

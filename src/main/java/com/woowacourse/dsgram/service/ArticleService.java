@@ -7,6 +7,8 @@ import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.ArticleRequest;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +53,7 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Article> findAll() {
+    public List<Article> findAllByPage() {
         return articleRepository.findAll();
     }
 
@@ -77,5 +79,9 @@ public class ArticleService {
     public List<Article> findArticlesByAuthorNickName(String nickName) {
         userService.findByNickName(nickName);
         return articleRepository.findAllByAuthorNickName(nickName);
+    }
+
+    public Page<Article> findAllByPage(int page) {
+        return articleRepository.findAll(PageRequest.of(page, 10));
     }
 }

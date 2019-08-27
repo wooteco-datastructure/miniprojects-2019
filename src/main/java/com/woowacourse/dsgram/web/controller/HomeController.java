@@ -2,6 +2,7 @@ package com.woowacourse.dsgram.web.controller;
 
 import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.service.ArticleService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String showMainPage(Model model) {
-        List<Article> articles = articleService.findAll();
+        Page<Article> articles2 = articleService.findAllByPage(0);
+
+        List<Article> articles = articles2.getContent();
         model.addAttribute("articles", articles);
         return "index";
     }

@@ -42,4 +42,9 @@ public class ArticleApiController {
         articleService.delete(articleId, loggedInUser);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity showArticles(int page) {
+        return new ResponseEntity(articleService.findAllByPage(page), HttpStatus.OK);
+    }
 }
