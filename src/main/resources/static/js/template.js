@@ -29,7 +29,7 @@ TEMPLATE_APP = (() => {
                                         <ul class="list-unstyled list-info">
                                             <li>
                                                 <img class="thumb-img img-circle" src="/images/default/default_profile.png"
-                                                     alt="">
+                                                     id="thumb-img-${article.id}" alt="">
                                                 <div class="info">
                                                     <a href="" class="title no-pdd-vertical text-bold inline-block font-size-15">
                                                         ${article.author.nickName}</a>

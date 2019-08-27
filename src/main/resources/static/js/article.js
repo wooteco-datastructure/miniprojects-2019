@@ -108,6 +108,7 @@ const ARTICLE_APP = (() => {
                     .then(data => {
                         data.content.forEach(article => {
                             fileLoader.loadMediaFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`);
+                            fileLoader.loadProfileImageFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`, `${article.author.id}`);
                             cards.insertAdjacentHTML('beforeend', template.card(article));
                         });
                         headerService.applyHashTag();

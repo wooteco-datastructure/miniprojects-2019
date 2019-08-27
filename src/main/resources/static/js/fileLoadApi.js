@@ -37,6 +37,12 @@ const FILE_LOAD_APP = (() => {
             }
         };
 
+        const setProfileSrcAttribute = (url, fileName, articleId) => {
+            const articleImage = document.getElementById('thumb-img-' + articleId);
+            articleImage.style.display = "block";
+            articleImage.src = url;
+        };
+
         const loadMediaFile = (fileLoader, fileName, id) => {
             const connector  = FETCH_APP.FetchApi();
 
@@ -56,10 +62,31 @@ const FILE_LOAD_APP = (() => {
             connector.fetchTemplateWithoutBody(`/api/articles/${id}/file`, connector.GET, loadFile);
         };
 
+        const loadProfileImageFile = (fileLoader, fileName, articleId, userId) => {
+            const connector = FETCH_APP.FetchApi();
+
+            const loadFile = response => {
+                response.arrayBuffer().then(buffer => {
+                    const bytes = new Uint8Array(buffer);
+                    let binary = '';
+                    bytes.forEach((b) => binary += String.fromCharCode(b));
+
+                    const blob = fileLoader.b64StringToBlob(binary);
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    fileLoader.setProfileSrcAttribute(blobUrl, fileName, articleId);
+                });
+            };
+
+            connector.fetchTemplateWithoutBody(`/api/users/${userId}/image`, connector.GET, loadFile);
+        };
+
         return {
             b64StringToBlob: b64StringToBlob,
             setSrcAttribute: setSrcAttribute,
+            setProfileSrcAttribute: setProfileSrcAttribute,
             loadMediaFile: loadMediaFile,
+            loadProfileImageFile: loadProfileImageFile
         }
     };
 
