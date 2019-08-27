@@ -31,6 +31,8 @@
     <script th:inline="javascript">
         const fileLoad = function () {
             const fileLoader = FILE_LOAD_APP.FileLoadService();
+            fileLoader.loadProfileImageFile(fileLoader, [[${article.author.fileInfo.fileName}]],
+                [[${article.id}]], [[${article.author.id}]]);
             fileLoader.loadMediaFile(fileLoader, [[${article.fileInfo.fileName}]], [[${article.id}]]);
         };
         window.addEventListener('DOMContentLoaded', fileLoad);

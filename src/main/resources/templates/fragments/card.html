@@ -3,7 +3,7 @@
     <ul class="list-unstyled list-info">
         <li>
             <img class="thumb-img img-circle" src="/images/default/default_profile.png"
-                 alt="">
+                 alt="" th:id="'thumb-img-' + ${article.id}">
             <div class="info">
                 <a href="" th:text="${article.author.nickName}"
                    class="title no-pdd-vertical text-bold inline-block font-size-15"></a>

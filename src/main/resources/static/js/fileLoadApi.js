@@ -67,7 +67,7 @@ const FILE_LOAD_APP = (() => {
 
             const loadFile = response => {
                 response.arrayBuffer().then(buffer => {
-                    if (buffer.size === 0) {
+                    if (buffer.byteLength === 0) {
                         return;
                     }
                     const bytes = new Uint8Array(buffer);
