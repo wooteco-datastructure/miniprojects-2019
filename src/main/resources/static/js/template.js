@@ -102,7 +102,7 @@ TEMPLATE_APP = (() => {
                                         <div class="comment">
                                            <span class="show-comment">댓글 모두 보기</span>
                                             <ul class="list-unstyled list-info pdd-horizon-5"></ul>
-                                            <div class="add-comment relative">
+                                            <div class="add-comment relative" data-article-id="${articleInfo.articleId}">
                                                 <textarea rows="1" class="form-control text-dark padding-15"
                                                   placeholder="댓글 달기..."></textarea>
                                                 <div class="absolute top-5 right-0">

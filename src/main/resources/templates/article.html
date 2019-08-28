@@ -28,10 +28,15 @@
             </div>
         </div>
     </div>
+    <script src="/js/fetchApi.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/fileLoadApi.js"></script>
+    <script src="/js/card.js"></script>
+    <script src="/js/template.js"></script>x
+    <script src="/js/comment.js"></script>x
     <script th:inline="javascript">
-        // window.onload = function() {
-        document.addEventListener( 'DOMContentLoaded', function( event ) {
+        (function() {
             const cards = document.getElementById('cards');
             const articleId = [[${articleId}]];
 
@@ -42,6 +47,8 @@
                         cards.insertAdjacentHTML('afterbegin', template);
                         articleFileLoad(res.articleFileName, res.articleId);
                         userFileLoad(res.userFileName, res.userId);
+
+                        COMMENT_APP.init();
                     });
                 });
 
@@ -54,10 +61,8 @@
                 const fileLoader = FILE_LOAD_APP.FileLoadService();
                 fileLoader.loadProfileImageFile(fileLoader, userFileName, userId);
             };
-        })
+        })();
 
-        // };
     </script>
-    <script src="/js/comment.js"></script>
 </th:block>
 </html>

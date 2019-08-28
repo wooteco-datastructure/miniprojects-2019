@@ -1,15 +1,12 @@
 const COMMENT_APP = (() => {
 
     const CommentController = function() {
-        console.log('controller come');
         const commentService = new CommentService();
 
         const saveComment = () => {
             const commentSaveButtons = document.getElementsByClassName("comment-save-button");
-            console.log(commentSaveButtons)
 
             for (let i = 0; i < commentSaveButtons.length; i++) {
-                console.log(commentSaveButtons[i])
                 commentSaveButtons.item(i).addEventListener("click", commentService.save);
             }
         };
@@ -38,9 +35,7 @@ const COMMENT_APP = (() => {
     };
 
     const CommentService = function() {
-        console.log('service come');
         const save = event => {
-            console.log("*****************",event.target)
             const connectors = FETCH_APP.FetchApi();
             let target = event.target;
             let targetArticleId = target.parentNode.parentNode.getAttribute("data-article-id");
@@ -102,11 +97,6 @@ const COMMENT_APP = (() => {
     };
 
     const init = () => {
-        // document.addEventListener( 'DOMContentLoaded', function( event ) {
-        //     const commentController = new CommentController();
-        //     commentController.init();
-        // });
-
         const commentController = new CommentController();
         commentController.init()
     };
@@ -116,7 +106,5 @@ const COMMENT_APP = (() => {
     };
 
 })();
-window.onload = function() {
-    COMMENT_APP.init();
-}
+
 
