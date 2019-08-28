@@ -65,7 +65,7 @@ class ArticleServiceTest {
     void 게시글_생성_성공() {
         given(articleRepository.save(article)).willReturn(article);
         given(userService.findUserById(anyLong())).willReturn(user);
-        articleService.create(articleRequest, loggedInUser);
+//        articleService.create(articleRequest, loggedInUser);
 
         verify(articleRepository).save(article);
     }

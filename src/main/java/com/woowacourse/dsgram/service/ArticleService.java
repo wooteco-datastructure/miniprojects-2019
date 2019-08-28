@@ -3,7 +3,9 @@ package com.woowacourse.dsgram.service;
 import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.FileInfo;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
+import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
+import com.woowacourse.dsgram.service.dto.ArticleInfo;
 import com.woowacourse.dsgram.service.dto.ArticleRequest;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
@@ -29,7 +31,11 @@ public class ArticleService {
     }
 
     @Transactional
-    public Article create(ArticleRequest articleRequest, LoggedInUser loggedInUser) {
+    public long createAndFindId(ArticleRequest articleRequest, LoggedInUser loggedInUser) {
+        return create(articleRequest, loggedInUser).getId();
+    }
+
+    private Article create(ArticleRequest articleRequest, LoggedInUser loggedInUser) {
         FileInfo fileInfo = fileService.save(articleRequest.getFile(), new ArticleFileNamingStrategy());
 
         Article article = Article.builder()
@@ -42,6 +48,7 @@ public class ArticleService {
 
         return articleRepository.save(article);
     }
+
 
     @Transactional(readOnly = true)
     public Article findById(long articleId) {
@@ -77,5 +84,9 @@ public class ArticleService {
     public List<Article> findArticlesByAuthorNickName(String nickName) {
         userService.findByNickName(nickName);
         return articleRepository.findAllByAuthorNickName(nickName);
+    }
+
+    public ArticleInfo findArticleInfo(long articleId) {
+        return ArticleAssembler.toArticleInfo(findById(articleId));
     }
 }
