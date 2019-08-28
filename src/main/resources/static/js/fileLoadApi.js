@@ -39,10 +39,13 @@ const FILE_LOAD_APP = (() => {
 
 
         //todo setSrcAttribute와 중복!!
-        const setProfileSrcAttribute = (url, articleId) => {
-            const articleImage = document.getElementById('thumb-img-' + articleId);
-            articleImage.style.display = "block";
-            articleImage.src = url;
+        const setProfileSrcAttribute = (url, userId) => {
+            const articleImages = document.getElementsByClassName('thumb-img-user-' + userId);
+
+            for (i = 0; i < articleImages.length; i++) {
+                articleImages[i].style.display = "block";
+                articleImages[i].src = url;
+            }
         };
 
         const loadMediaFile = (fileLoader, fileName, id) => {
@@ -82,7 +85,7 @@ const FILE_LOAD_APP = (() => {
                     const blob = fileLoader.b64StringToBlob(binary);
                     const blobUrl = URL.createObjectURL(blob);
 
-                    fileLoader.setProfileSrcAttribute(blobUrl, articleId);
+                    fileLoader.setProfileSrcAttribute(blobUrl, userId);
 
                 });
             };

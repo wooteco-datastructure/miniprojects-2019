@@ -28,7 +28,7 @@ TEMPLATE_APP = (() => {
                                     <div class="feed-header padding-15">
                                         <ul class="list-unstyled list-info">
                                             <li>
-                                                <img class="thumb-img img-circle" src="/images/default/default_profile.png"
+                                                <img class="thumb-img img-circle thumb-img-user-${article.author.id}" src="/images/default/default_profile.png"
                                                      id="thumb-img-${article.id}" alt="">
                                                 <div class="info">
                                                     <a href="" class="title no-pdd-vertical text-bold inline-block font-size-15">

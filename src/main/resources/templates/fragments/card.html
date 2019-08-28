@@ -2,7 +2,8 @@
 <div class="feed-header padding-15">
     <ul class="list-unstyled list-info">
         <li>
-            <img class="thumb-img img-circle" src="/images/default/default_profile.png"
+            <img src="/images/default/default_profile.png"
+                 th:class="'img-circle thumb-img thumb-img-user-' + ${article.author.id}"
                  alt="" th:id="'thumb-img-' + ${article.id}">
             <div class="info">
                 <a href="" th:text="${article.author.nickName}"
