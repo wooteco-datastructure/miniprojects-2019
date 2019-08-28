@@ -28,14 +28,13 @@ const SEARCH_APP = (() => {
             const query = queryInput.innerText;
             const addArticle = response => {
                 response.json()
-                    .then(data => {
-                        count.innerText = data.totalElements;
+                    .then(articleInfos => {
+                        count.innerText = articleInfos.length;
 
-                        data.content.forEach(hashTag => {
-                            const article = hashTag.article;
-                            fileLoader.loadMediaFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`);
-                            fileLoader.loadProfileImageFile(fileLoader, `${article.id}`, `${article.author.id}`);
-                            cards.insertAdjacentHTML('beforeend', template.card(article));
+                        articleInfos.forEach(articleInfo => {
+                            fileLoader.loadMediaFile(fileLoader, `${articleInfo.articleFileName}`, `${articleInfo.articleId}`);
+                            fileLoader.loadProfileImageFile(fileLoader, `${articleInfo.articleId}`, `${articleInfo.userId}`);
+                            cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
                         });
                         headerService.applyHashTag();
                     });

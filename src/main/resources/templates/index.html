@@ -83,6 +83,33 @@
         </div>
     </div>
 
+    <script th:inline="javascript">
+        window.onload = function () {
+            const connector = FETCH_APP.FetchApi();
+            const cards = document.getElementById('cards');
+
+            connector.fetchTemplateWithoutBody(`/api/articles`, connector.GET,
+                (response) => {
+                    response.json().then(res => {
+                        const template = TEMPLATE_APP.TemplateService().card(res);
+                        cards.insertAdjacentHTML('afterbegin', template);
+                        articleFileLoad(res.articleFileName, res.articleId);
+                        userFileLoad(res.userFileName, res.userId);
+                    });
+                });
+        };
+
+        const articleFileLoad = function (articleFileName, articleId) {
+            const fileLoader = FILE_LOAD_APP.FileLoadService();
+            fileLoader.loadMediaFile(fileLoader, articleFileName, articleId);
+        };
+
+        const userFileLoad = function (userFileName, userId) {
+            const fileLoader = FILE_LOAD_APP.FileLoadService();
+            fileLoader.loadProfileImageFile(fileLoader, userFileName, userId);
+        };
+    </script>
+
 
 </th:block>
 </html>
