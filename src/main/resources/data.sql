@@ -4,7 +4,7 @@ insert into file_info(id, file_name, file_path) values(3, 'sample_img_02.jpg', '
 
 
 insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(1, 'qwe@naver.com', 'qwe', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
-insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(2, 'qwe2@naver.com', 'qwe2', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
+insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(2, 'qwe2@naver.com', 'hello', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
 
 insert into follow(id, followed, follower,create_time, renew_time) values(1, 1, 2,CURRENT_TIME(), CURRENT_TIME());
 
@@ -28,6 +28,12 @@ insert into article(id, contents, author, fileinfo_id, create_time, renew_time) 
 insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(17, '17#qwe', 1, 1,CURRENT_TIME(), CURRENT_TIME());
 insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(18, '18#qwe', 1, 1,CURRENT_TIME(), CURRENT_TIME());
 insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(19, '19#qwe', 1, 1,CURRENT_TIME(), CURRENT_TIME());
+
+insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(20, '1#hello', 2, 1,CURRENT_TIME(), CURRENT_TIME());
+insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(21, '2#hello', 2, 1,CURRENT_TIME(), CURRENT_TIME());
+insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(22, '3#hello', 2, 1,CURRENT_TIME(), CURRENT_TIME());
+insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(23, '4#hello', 2, 1,CURRENT_TIME(), CURRENT_TIME());
+insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(24, '5#hello', 2, 1,CURRENT_TIME(), CURRENT_TIME());
 
 
 insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(1, '#qwe', 1,CURRENT_TIME(), CURRENT_TIME());
@@ -53,3 +59,9 @@ insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(19
 insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(20, '#qwe', 17,CURRENT_TIME(), CURRENT_TIME());
 insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(21, '#qwe', 18,CURRENT_TIME(), CURRENT_TIME());
 insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(22, '#qwe', 19,CURRENT_TIME(), CURRENT_TIME());
+
+insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(23, '#hello', 20,CURRENT_TIME(), CURRENT_TIME());
+insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(24, '#hello', 21,CURRENT_TIME(), CURRENT_TIME());
+insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(25, '#hello', 22,CURRENT_TIME(), CURRENT_TIME());
+insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(26, '#hello', 23,CURRENT_TIME(), CURRENT_TIME());
+insert into hash_tag(id, keyword, article_id, create_time, renew_time) values(27, '#hello', 24,CURRENT_TIME(), CURRENT_TIME());
