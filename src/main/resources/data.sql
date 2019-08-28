@@ -1,6 +1,9 @@
-insert into user(id, email, nick_name, password, user_name) values(1, 'qwe@naver.com', 'qwe', 'qweqwe', 'qwe');
-
 insert into file_info(id, file_name, file_path) values(1, 'sample_img_01.jpg', '/Users/jinwook/woowa_course/level2/miniprojects-2019/src/main/resources/static/images/default');
+insert into file_info(id, file_name, file_path) values(2, 'eastjun_profile.jpg', '/Users/jinwook/woowa_course/level2/miniprojects-2019/src/main/resources/static/images/default');
+
+
+insert into user(id, email, nick_name, password, user_name, fileinfo_id) values(1, 'qwe@naver.com', 'qwe', 'qweqwe', 'qwe',2);
+
 
 insert into article(id, contents, author, fileinfo_id) values(1, '1#qwe#qqq#qww#qee', 1, 1);
 insert into article(id, contents, author, fileinfo_id) values(2, '2#qwe#qqq', 1, 1);

@@ -2,27 +2,11 @@ const SEARCH_APP = (() => {
 
     const SearchController = function () {
         const searchService = new SearchService();
-
-        const loadArticleByObserve = () => {
-            const end = document.getElementById('end');
-            if (!end) {
-                return;
-            }
-            let page = 0;
-            const io = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-                    searchService.loadArticles(page++);
-                });
-            });
-
-            io.observe(end);
-        };
+        const loadArticles = searchService.loadArticles;
+        const observer = OBSERVER_APP.observeService();
 
         const init = () => {
-            loadArticleByObserve();
+            observer.loadByObserve(loadArticles);
         };
 
         return {

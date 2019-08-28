@@ -3,6 +3,8 @@ const ARTICLE_APP = (() => {
 
     const ArticleController = function () {
         const articleService = new ArticleService();
+        const loadArticles = articleService.loadArticles;
+        const observer = OBSERVER_APP.observeService();
 
         const saveArticle = () => {
             const articleSaveButton = document.getElementById('save-button');
@@ -19,31 +21,11 @@ const ARTICLE_APP = (() => {
             imageInput ? imageInput.addEventListener("change", articleService.changeImageJustOnFront) : undefined;
         };
 
-
-        //todo search-result와 중복!!
-        const loadArticleByObserve = () => {
-            const end = document.getElementById('end');
-            if (!end) {
-                return;
-            }
-            let page = 0;
-            const io = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-                    articleService.loadArticles(page++);
-                });
-            });
-
-            io.observe(end);
-        };
-
         const init = () => {
             saveArticle();
             writeArticle();
             showThumbnail();
-            loadArticleByObserve();
+            observer.loadByObserve(loadArticles);
         };
 
         return {
