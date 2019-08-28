@@ -15,7 +15,7 @@ const MY_FEED_APP = (() => {
                     .then(articleInfos => {
                         articleInfos.forEach(articleInfo => {
                             fileLoader.loadMediaFile(fileLoader, `${articleInfo.articleFileName}`, `${articleInfo.articleId}`);
-                            fileLoader.loadProfileImageFile(fileLoader, `${articleInfo.articleId}`, `${articleInfo.userId}`);
+                            fileLoader.loadProfileImageFile(fileLoader, `${articleInfo.userId}`, "thumb-img-user-");
                             cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
                         });
                         headerService.applyHashTag();

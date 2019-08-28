@@ -53,7 +53,7 @@
 
         const userFileLoad = function (userFileName, userId) {
             const fileLoader = FILE_LOAD_APP.FileLoadService();
-            fileLoader.loadProfileImageFile(fileLoader, userFileName, userId);
+            fileLoader.loadProfileImageFile(fileLoader, userId, "thumb-img-user-");
         };
     </script>
 </th:block>
