@@ -1,8 +1,12 @@
 insert into file_info(id, file_name, file_path) values(1, 'sample_img_01.jpg', '/Users/jinwook/woowa_course/level2/miniprojects-2019/src/main/resources/static/images/default');
 insert into file_info(id, file_name, file_path) values(2, 'eastjun_profile.jpg', '/Users/jinwook/woowa_course/level2/miniprojects-2019/src/main/resources/static/images/default');
+insert into file_info(id, file_name, file_path) values(3, 'sample_img_02.jpg', '/Users/jinwook/woowa_course/level2/miniprojects-2019/src/main/resources/static/images/default');
 
 
 insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(1, 'qwe@naver.com', 'qwe', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
+insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(2, 'qwe2@naver.com', 'qwe2', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
+
+insert into follow(id, followed, follower,create_time, renew_time) values(1, 1, 2,CURRENT_TIME(), CURRENT_TIME());
 
 
 insert into article(id, contents, author, fileinfo_id, create_time, renew_time) values(1, '1#qwe#qqq#qww#qee', 1, 1,CURRENT_TIME(), CURRENT_TIME());
