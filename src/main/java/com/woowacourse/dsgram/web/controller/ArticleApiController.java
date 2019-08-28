@@ -1,6 +1,5 @@
 package com.woowacourse.dsgram.web.controller;
 
-import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.service.ArticleService;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.ArticleRequest;
@@ -21,14 +20,19 @@ public class ArticleApiController {
     }
 
     @PostMapping
-    public ResponseEntity<Article> create(ArticleRequest articleRequest, @UserSession LoggedInUser loggedInUser) {
-        Article savedArticle = articleService.create(articleRequest, loggedInUser);
-        return new ResponseEntity<>(savedArticle, HttpStatus.OK);
+    public ResponseEntity create(ArticleRequest articleRequest, @UserSession LoggedInUser loggedInUser) {
+        Long articleId = articleService.createAndFindId(articleRequest, loggedInUser);
+        return ResponseEntity.ok(articleId);
     }
 
     @GetMapping("{articleId}/file")
     public ResponseEntity<byte[]> showArticleFile(@PathVariable long articleId) {
         return new ResponseEntity<>(articleService.findFileById(articleId), HttpStatus.OK);
+    }
+
+    @GetMapping("{articleId}")
+    public ResponseEntity showArticleInfo(@PathVariable long articleId) {
+        return ResponseEntity.ok(articleService.findArticleInfo(articleId));
     }
 
     @PutMapping("{articleId}")
@@ -45,6 +49,7 @@ public class ArticleApiController {
 
     @GetMapping
     public ResponseEntity showArticles(int page) {
+
         return new ResponseEntity(articleService.findAllByPage(page), HttpStatus.OK);
     }
 }

@@ -52,7 +52,7 @@ const ARTICLE_APP = (() => {
             const formData = new FormData(postForm);
 
             const redirectToArticlePage = response => {
-                response.json().then(article => window.location.href = `/articles/${article.id}`);
+                response.json().then(articleId => window.location.href = `/articles/${articleId}`);
             };
             connector.fetchTemplate('/api/articles', connector.POST, {}, formData, redirectToArticlePage);
         };
