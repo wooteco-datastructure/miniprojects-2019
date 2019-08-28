@@ -39,7 +39,7 @@ const FILE_LOAD_APP = (() => {
 
 
         //todo setSrcAttribute와 중복!!
-        const setProfileSrcAttribute = (url, fileName, articleId) => {
+        const setProfileSrcAttribute = (url, articleId) => {
             const articleImage = document.getElementById('thumb-img-' + articleId);
             articleImage.style.display = "block";
             articleImage.src = url;
@@ -66,7 +66,7 @@ const FILE_LOAD_APP = (() => {
 
 
         //todo loadMediaFile과 중복!
-        const loadProfileImageFile = (fileLoader, fileName, articleId, userId) => {
+        const loadProfileImageFile = (fileLoader, articleId, userId) => {
             const connector = FETCH_APP.FetchApi();
 
             const loadFile = response => {
@@ -74,6 +74,7 @@ const FILE_LOAD_APP = (() => {
                     if (buffer.byteLength === 0) {
                         return;
                     }
+
                     const bytes = new Uint8Array(buffer);
                     let binary = '';
                     bytes.forEach((b) => binary += String.fromCharCode(b));
@@ -81,7 +82,8 @@ const FILE_LOAD_APP = (() => {
                     const blob = fileLoader.b64StringToBlob(binary);
                     const blobUrl = URL.createObjectURL(blob);
 
-                    fileLoader.setProfileSrcAttribute(blobUrl, fileName, articleId);
+                    fileLoader.setProfileSrcAttribute(blobUrl, articleId);
+
                 });
             };
 

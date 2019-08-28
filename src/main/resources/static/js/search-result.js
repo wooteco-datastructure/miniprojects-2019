@@ -34,7 +34,7 @@ const SEARCH_APP = (() => {
                         data.content.forEach(hashTag => {
                             const article = hashTag.article;
                             fileLoader.loadMediaFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`);
-                            fileLoader.loadProfileImageFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`, `${article.author.id}`);
+                            fileLoader.loadProfileImageFile(fileLoader, `${article.id}`, `${article.author.id}`);
                             cards.insertAdjacentHTML('beforeend', template.card(article));
                         });
                         headerService.applyHashTag();
