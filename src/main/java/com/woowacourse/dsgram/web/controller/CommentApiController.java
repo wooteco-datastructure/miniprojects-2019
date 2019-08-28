@@ -30,9 +30,9 @@ public class CommentApiController {
     }
 
     @DeleteMapping("/{commentId}")
-    public HttpStatus delete(@PathVariable("commentId") Long commentId, @UserSession LoggedInUser loggedInUser) {
+    public ResponseEntity delete(@PathVariable("commentId") Long commentId, @UserSession LoggedInUser loggedInUser) {
         commentService.delete(commentId, loggedInUser.getId());
-        return HttpStatus.OK;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/{commentId}")

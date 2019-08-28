@@ -3,6 +3,7 @@ package com.woowacourse.dsgram.service;
 import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.FileInfo;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
+import com.woowacourse.dsgram.domain.repository.CommentRepository;
 import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.ArticleInfo;
@@ -19,12 +20,14 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final CommentRepository commentRepository;
     private final HashTagService hashTagService;
     private final FileService fileService;
     private final UserService userService; // TODO: 빼고싶음
 
-    public ArticleService(ArticleRepository articleRepository, HashTagService hashTagService, FileService fileService, UserService userService) {
+    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository, HashTagService hashTagService, FileService fileService, UserService userService) {
         this.articleRepository = articleRepository;
+        this.commentRepository = commentRepository;
         this.hashTagService = hashTagService;
         this.fileService = fileService;
         this.userService = userService;
@@ -87,6 +90,7 @@ public class ArticleService {
     }
 
     public ArticleInfo findArticleInfo(long articleId) {
-        return ArticleAssembler.toArticleInfo(findById(articleId));
+        long countOfComments = commentRepository.countByArticleId(articleId);
+        return ArticleAssembler.toArticleInfo(findById(articleId),countOfComments);
     }
 }
