@@ -29,19 +29,13 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
-    <script src="/js/article.js"></script>
-    <script src="/js/fetchApi.js"></script>
-    <script src="/js/fileLoadApi.js"></script>
-    <script src="/js/card.js"></script>
-    <script src="/js/comment.js"></script>
-    <script src="/js/template.js"></script>
     <script th:inline="javascript">
-        window.onload = function() {
-            const connector = FETCH_APP.FetchApi();
+        // window.onload = function() {
+        document.addEventListener( 'DOMContentLoaded', function( event ) {
             const cards = document.getElementById('cards');
             const articleId = [[${articleId}]];
 
-            connector.fetchTemplateWithoutBody(`/api/articles/${articleId}`, connector.GET,
+            FETCH_APP.FetchApi().fetchTemplateWithoutBody(`/api/articles/${articleId}`, FETCH_APP.FetchApi().GET,
                 (response) => {
                     response.json().then(res => {
                         const template = TEMPLATE_APP.TemplateService().card(res);
@@ -50,17 +44,20 @@
                         userFileLoad(res.userFileName, res.userId);
                     });
                 });
-        };
 
-        const articleFileLoad = function (articleFileName, articleId) {
-            const fileLoader = FILE_LOAD_APP.FileLoadService();
-            fileLoader.loadMediaFile(fileLoader, articleFileName, articleId);
-        };
+            const articleFileLoad = function (articleFileName, articleId) {
+                const fileLoader = FILE_LOAD_APP.FileLoadService();
+                fileLoader.loadMediaFile(fileLoader, articleFileName, articleId);
+            };
 
-        const userFileLoad = function (userFileName, userId) {
-            const fileLoader = FILE_LOAD_APP.FileLoadService();
-            fileLoader.loadProfileImageFile(fileLoader, userFileName, userId);
-        };
+            const userFileLoad = function (userFileName, userId) {
+                const fileLoader = FILE_LOAD_APP.FileLoadService();
+                fileLoader.loadProfileImageFile(fileLoader, userFileName, userId);
+            };
+        })
+
+        // };
     </script>
+    <script src="/js/comment.js"></script>
 </th:block>
 </html>
