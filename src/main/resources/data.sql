@@ -4,7 +4,7 @@ insert into file_info(id, file_name, file_path) values(3, 'sample_img_02.jpg', '
 
 
 insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(1, 'qwe@naver.com', 'qwe', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
-insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(2, 'qwe2@naver.com', 'hello', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
+insert into user(id, email, nick_name, password, user_name, fileinfo_id, create_time, renew_time) values(2, 'qwe2@naver.com', 'hello', 'qweqwe', 'qwe',3, CURRENT_TIME(), CURRENT_TIME());
 
 insert into follow(id, followed, follower,create_time, renew_time) values(1, 1, 2,CURRENT_TIME(), CURRENT_TIME());
 

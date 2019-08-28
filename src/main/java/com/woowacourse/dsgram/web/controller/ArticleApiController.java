@@ -64,4 +64,15 @@ public class ArticleApiController {
 
         return new ResponseEntity(articleInfos, HttpStatus.OK);
     }
+
+    @GetMapping("/users/{userNickname}")
+    public ResponseEntity showUserArticles(@PathVariable String userNickname) {
+        List<Article> articles = articleService.findArticlesByAuthorNickName(userNickname)
+                .stream().sorted()
+                .collect(Collectors.toList());
+
+        List<ArticleInfo> articleInfos = articles.stream().map(article -> ArticleAssembler.toArticleInfo(article)).collect(Collectors.toList());
+
+        return new ResponseEntity(articleInfos, HttpStatus.OK);
+    }
 }
