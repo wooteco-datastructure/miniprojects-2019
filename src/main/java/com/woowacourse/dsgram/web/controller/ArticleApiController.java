@@ -57,7 +57,7 @@ public class ArticleApiController {
     }
 
     @GetMapping
-    public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser, int page) {
+    public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser) {
         List<Article> articles = facade.getArticlesByFollowings(loggedInUser.getNickName());
 
         List<ArticleInfo> articleInfos = articles.stream().map(article -> ArticleAssembler.toArticleInfo(article)).collect(Collectors.toList());

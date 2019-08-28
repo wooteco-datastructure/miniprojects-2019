@@ -4,7 +4,8 @@ const ARTICLE_APP = (() => {
     const ArticleController = function () {
         const articleService = new ArticleService();
         const loadArticles = articleService.loadArticles;
-        const observer = OBSERVER_APP.observeService();
+        //todo 팔로우한 사람 글만 보이게 하는 jpa paging 쿼리문을 몰라서 일단 무한 스크롤은 적용 안 함
+        //const observer = OBSERVER_APP.observeService();
 
         const saveArticle = () => {
             const articleSaveButton = document.getElementById('save-button');
@@ -25,7 +26,7 @@ const ARTICLE_APP = (() => {
             saveArticle();
             writeArticle();
             showThumbnail();
-            observer.loadByObserve(loadArticles);
+            loadArticles();
         };
 
         return {
@@ -87,20 +88,20 @@ const ARTICLE_APP = (() => {
         };
 
         // TODO search-result.js와 중복!!
-        const loadArticles = page => {
+        const loadArticles = () => {
             const addArticle = response => {
                 response.json()
-                    .then(data => {
-                        data.content.forEach(article => {
-                            fileLoader.loadMediaFile(fileLoader, `${article.fileInfo.fileName}`, `${article.id}`);
-                            fileLoader.loadProfileImageFile(fileLoader, `${article.id}`, `${article.author.id}`);
-                            cards.insertAdjacentHTML('beforeend', template.card(article));
+                    .then(articleInfos => {
+                        articleInfos.forEach(articleInfo => {
+                            fileLoader.loadMediaFile(fileLoader, `${articleInfo.articleFileName}`, `${articleInfo.articleId}`);
+                            fileLoader.loadProfileImageFile(fileLoader, `${articleInfo.articleId}`, `${articleInfo.userId}`);
+                            cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
                         });
                         headerService.applyHashTag();
                     });
             };
 
-            connector.fetchTemplateWithoutBody(`/api/articles?page=${page}`, connector.GET, addArticle);
+            connector.fetchTemplateWithoutBody(`/api/articles`, connector.GET, addArticle);
         };
 
         return {
