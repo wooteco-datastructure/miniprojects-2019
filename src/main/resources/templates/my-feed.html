@@ -17,6 +17,7 @@
                             <div clas="myFeed-info">
                                 <div class="user-image items">
                                     <img src="https://c6oxm85c.cloudimg.io/cdno/n/q85/https://az617363.vo.msecnd.net/imgmodels/models/MD50000639/akiimaa500699922cd4a1412ddaa432873f29c_thumb.jpg"
+                                         th:class="'big-thumb-img-user-' + ${feedInfo.user.id}"
                                          alt="">
                                 </div>
                                 <div class="user-info items">
@@ -142,8 +143,12 @@
         // TODO 무한 스크롤로 변경 시 이동
         // TODO feedInfo 객체가 user 객체를 가지고 있는게 맞을까? feedInfo 통해 user password 접근이 가능해짐
         const userNickname = [[${feedInfo.user.nickName}]];
+        const userId = [[${feedInfo.user.id}]];
         const myFeedLoader = MY_FEED_APP.myFeedService();
         myFeedLoader.loadArticles(userNickname);
+
+        const fileLoader = FILE_LOAD_APP.FileLoadService();
+        fileLoader.loadProfileImageFile(fileLoader, userId, "big-thumb-img-user-")
     </script>
 </th:block>
 </html>
