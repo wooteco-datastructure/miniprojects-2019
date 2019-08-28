@@ -53,7 +53,7 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Article> findAllByPage() {
+    public List<Article> findAll() {
         return articleRepository.findAll();
     }
 
