@@ -10,11 +10,11 @@ import java.util.UUID;
 
 public abstract class CommonFileNamingStrategy implements FileNamingStrategy {
 
+    static final String SEPARATOR = "/";
     // TODO : NULL CHECK 어떻게?
     private static final String basePath = System.getProperty("user.home");
     private static final String FOLDER_DATE_FORMAT = "yyyyMMdd";
     private static final String TIME_ZONE = "Asia/Seoul";
-    static final String SEPARATOR = "/";
 
     @Override
     public String makeUniquePrefix(String originalFilename) {

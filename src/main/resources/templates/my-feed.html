@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="head">
     <title>woostagram</title>
-    <link rel="stylesheet" href="/css/myFeed.css">
+    <link href="/css/myFeed.css" rel="stylesheet">
 </th:block>
 
 <th:block layout:fragment="content">
@@ -16,25 +16,26 @@
                         <div class="myFeed-header">
                             <div clas="myFeed-info">
                                 <div class="user-image items">
-                                    <img src="https://c6oxm85c.cloudimg.io/cdno/n/q85/https://az617363.vo.msecnd.net/imgmodels/models/MD50000639/akiimaa500699922cd4a1412ddaa432873f29c_thumb.jpg"
-                                         alt="">
+                                    <img alt=""
+                                         src="https://c6oxm85c.cloudimg.io/cdno/n/q85/https://az617363.vo.msecnd.net/imgmodels/models/MD50000639/akiimaa500699922cd4a1412ddaa432873f29c_thumb.jpg">
                                 </div>
                                 <div class="user-info items">
                                     <div>
-                                        <input id="guest" type="hidden" th:value="${session.sessionUser.nickName}">
-                                        <span id="feedOwner" class="user-id mrg-right-10" th:text="${feedInfo.user.nickName}"></span>
+                                        <input id="guest" th:value="${session.sessionUser.nickName}" type="hidden">
+                                        <span class="user-id mrg-right-10" id="feedOwner"
+                                              th:text="${feedInfo.user.nickName}"></span>
                                         <form th:if="${feedInfo.followRelation.name() == 'FOLLOW'}">
-                                            <button id="unfollow" class="btn btn-default">언팔로우</button>
+                                            <button class="btn btn-default" id="unfollow">언팔로우</button>
                                         </form>
                                         <form th:if="${feedInfo.followRelation.name() == 'UNFOLLOW'}">
-                                            <button id="follow" class="btn btn-primary">팔로우</button>
+                                            <button class="btn btn-primary" id="follow">팔로우</button>
                                         </form>
-                                            <span th:if="${feedInfo.followRelation.name() == 'MINE'}">
+                                        <span th:if="${feedInfo.followRelation.name() == 'MINE'}">
                                             <button class="btn btn-default text-bold mrg-right-10">프로필 편집</button>
                                             <span>
                                             <div class="dropdown">
-                                                <a class="pointer active dropdown-toggle" data-toggle="dropdown"
-                                                   aria-haspopup="true" aria-expanded="false">
+                                                <a aria-expanded="false" aria-haspopup="true"
+                                                   class="pointer active dropdown-toggle" data-toggle="dropdown">
                                                     <i class="ti-settings font-size-25"></i>
                                                 </a>
                                                 <!--Drop-down-->
@@ -55,12 +56,14 @@
                                         <span class="text-bold mrg-right-20"
                                               th:text="${feedInfo.articles.size()}"></span>
                                         <span>팔로워</span>
-                                        <span id="followers" class="text-bold mrg-right-20" th:text="${feedInfo.followers}"
-                                              data-toggle="modal" data-target="#follow-list"></span>
+                                        <span class="text-bold mrg-right-20" data-target="#follow-list"
+                                              data-toggle="modal"
+                                              id="followers" th:text="${feedInfo.followers}"></span>
 
                                         <span>팔로잉</span>
-                                        <span id="followings" class="text-bold mrg-right-20" th:text="${feedInfo.followings}"
-                                              data-toggle="modal" data-target="#follow-list"></span>
+                                        <span class="text-bold mrg-right-20" data-target="#follow-list"
+                                              data-toggle="modal"
+                                              id="followings" th:text="${feedInfo.followings}"></span>
                                     </div>
                                     <br/><br/>
                                     <div>
@@ -86,10 +89,11 @@
             <div class="container-fluid max-width-lg mx-auto">
                 <div class="row">
                     <div class="col-lg-7 mx-auto">
-                        <button type="button" id="write-article-button" class="btn btn-outline-primary"
-                                accesskey="w">피드 작성
+                        <button accesskey="w" class="btn btn-outline-primary" id="write-article-button"
+                                type="button">피드 작성
                         </button>
-                        <div id="cards" th:each="article : ${feedInfo.articles}" class="card widget-feed no-pdd mrg-btm-70">
+                        <div class="card widget-feed no-pdd mrg-btm-70" id="cards"
+                             th:each="article : ${feedInfo.articles}">
                             <th:block th:include="fragments/card"></th:block>
                         </div>
                     </div>
@@ -98,24 +102,24 @@
         </div>
     </div>
 
-    <div class="modal fade" id="follow-list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="follow-list" role="dialog"
+         tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div id="modal-head" class="modal-header">
+                <div class="modal-header" id="modal-head">
                     <h5 class="modal-title text-center text-bold" id="follow-relation"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div id="follower-info" class="modal-body">
+                <div class="modal-body" id="follower-info">
 
                 </div>
             </div>
         </div>
     </div>
 
-<!--    // todo 이거 두개 없으면 파일 안보임-->
+    <!--    // todo 이거 두개 없으면 파일 안보임-->
     <script src="/js/fetchApi.js"></script>
     <script src="/js/fileLoadApi.js"></script>
     <script th:inline="javascript">

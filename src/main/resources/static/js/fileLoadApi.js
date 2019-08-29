@@ -38,7 +38,7 @@ const FILE_LOAD_APP = (() => {
             articleImage.src = url;
         };
         const loadMediaFile = (fileLoader, fileName, id) => {
-            const connector  = FETCH_APP.FetchApi();
+            const connector = FETCH_APP.FetchApi();
             const loadFile = response => {
                 response.arrayBuffer().then(buffer => {
                     const bytes = new Uint8Array(buffer);

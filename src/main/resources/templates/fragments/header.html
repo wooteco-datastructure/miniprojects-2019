@@ -1,9 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<header id="header" class="header navbar">
+<header class="header navbar" id="header">
     <div class="header-container max-width-lg mx-auto">
         <ul class="nav-left mrg-left-0 padding-15">
             <li>
-                <a href="/" accesskey="q">
+                <a accesskey="q" href="/">
                     <img class="logo desktop-view" src="/images/logo/instgram_logo.png">
                 </a>
                 <div class="width-40px mobile-view overflow-hidden">
@@ -11,17 +11,17 @@
                 </div>
             </li>
             <li class="search-box mrg-left-20 desktop-view">
-                <a class="search-toggle no-pdd-right" href="#" accesskey="s">
+                <a accesskey="s" class="search-toggle no-pdd-right" href="#">
                     <i class="search-icon ti-search pdd-right-10 font-size-25"></i>
                     <i class="search-icon-close ti-close pdd-right-10 font-size-25"></i>
                 </a>
             </li>
             <li class="search-input desktop-view">
-                <input class="form-control mrg-top-0" type="text" placeholder="Search...">
+                <input class="form-control mrg-top-0" placeholder="Search..." type="text">
                 <div class="advanced-search">
                     <div class="search-wrapper">
                         <div class="pdd-btm-10">
-                            <ul id="search-result" class="list-unstyled list-info">
+                            <ul class="list-unstyled list-info" id="search-result">
                             </ul>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                 </a>
             </li>
             <li>
-                <a class="pointer" href="/logout" accesskey="t">
+                <a accesskey="t" class="pointer" href="/logout">
                     <i class="ti-lock"></i>
                 </a>
             </li>

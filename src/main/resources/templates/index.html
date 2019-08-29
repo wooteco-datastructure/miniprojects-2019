@@ -12,12 +12,12 @@
                 <div class="container-fluid max-width-lg mx-auto">
                     <div class="row">
                         <div class="col-lg-7 mx-auto">
-                            <button type="button" id="write-article-button" class="btn btn-outline-primary"
-                                    accesskey="w">피드 작성
+                            <button accesskey="w" class="btn btn-outline-primary" id="write-article-button"
+                                    type="button">피드 작성
                             </button>
                             <div id="cards">
-                                <div th:each="article : ${articles}"
-                                     class="card widget-feed no-pdd mrg-btm-70 shadow-sm">
+                                <div class="card widget-feed no-pdd mrg-btm-70 shadow-sm"
+                                     th:each="article : ${articles}">
                                     <th:block th:include="fragments/card"></th:block>
                                 </div>
                             </div>
@@ -29,16 +29,16 @@
     </div>
 
     <!-- Keymap Button -->
-    <button class="visibility-hidden" type="button" data-toggle="modal" data-target="#keymap" accesskey="/">
+    <button accesskey="/" class="visibility-hidden" data-target="#keymap" data-toggle="modal" type="button">
     </button>
 
     <!-- Keymap Modal -->
-    <div class="modal fade" id="keymap" tabindex="-1" role="dialog" aria-labelledby="keymapTitle" aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="keymapTitle" class="modal fade" id="keymap" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="keymapTitle">Keymap</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -80,7 +80,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
                 </div>
             </div>
         </div>

@@ -4,8 +4,8 @@ import com.woowacourse.dsgram.domain.Follow;
 import com.woowacourse.dsgram.domain.User;
 import com.woowacourse.dsgram.domain.repository.FollowRepository;
 import com.woowacourse.dsgram.service.assembler.UserAssembler;
-import com.woowacourse.dsgram.service.dto.FollowInfo;
 import com.woowacourse.dsgram.service.dto.FollowRelation;
+import com.woowacourse.dsgram.service.dto.UserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,23 +21,23 @@ public class FollowService {
     }
 
     public FollowRelation isFollowed(User guest, User feedOwner) {
-        Follow follow = getFollow(guest,feedOwner);
+        Follow follow = getFollow(guest, feedOwner);
         return FollowRelation.getRelation(follow, guest, feedOwner);
     }
 
-    public List<FollowInfo> findFollowers(User user) {
-        List<FollowInfo> followers = followRepository.findAllByTo(user)
+    public List<UserInfo> findFollowers(User user) {
+        List<UserInfo> followers = followRepository.findAllByTo(user)
                 .stream().map(Follow::getFrom)
-                .map(UserAssembler::toFollowInfo)
+                .map(UserAssembler::toUserInfo)
                 .collect(Collectors.toList());
 
         return followers;
     }
 
-    public List<FollowInfo> findFollowings(User user) {
-        List<FollowInfo> followings = followRepository.findAllByFrom(user)
+    public List<UserInfo> findFollowings(User user) {
+        List<UserInfo> followings = followRepository.findAllByFrom(user)
                 .stream().map(Follow::getTo)
-                .map(UserAssembler::toFollowInfo)
+                .map(UserAssembler::toUserInfo)
                 .collect(Collectors.toList());
 
         return followings;
@@ -53,12 +53,12 @@ public class FollowService {
 
 
     private Follow getFollow(User guest, User feedOwner) {
-        return followRepository.findByFromAndTo(guest,feedOwner);
+        return followRepository.findByFromAndTo(guest, feedOwner);
     }
 
     @Transactional
     public Follow save(User guest, User feedOwner) {
-        return followRepository.save(new Follow(guest,feedOwner));
+        return followRepository.save(new Follow(guest, feedOwner));
     }
 
     @Transactional

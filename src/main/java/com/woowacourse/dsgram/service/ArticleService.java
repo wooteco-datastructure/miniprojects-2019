@@ -2,12 +2,14 @@ package com.woowacourse.dsgram.service;
 
 import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.FileInfo;
+import com.woowacourse.dsgram.domain.User;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
 import com.woowacourse.dsgram.domain.repository.CommentRepository;
 import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.ArticleInfo;
 import com.woowacourse.dsgram.service.dto.ArticleRequest;
+import com.woowacourse.dsgram.service.dto.UserInfo;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
 import org.springframework.stereotype.Service;
@@ -24,13 +26,16 @@ public class ArticleService {
     private final HashTagService hashTagService;
     private final FileService fileService;
     private final UserService userService; // TODO: 빼고싶음
+    private final LikeService likeService;
 
-    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository, HashTagService hashTagService, FileService fileService, UserService userService) {
+    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository,
+                          HashTagService hashTagService, FileService fileService, UserService userService, LikeService likeService) {
         this.articleRepository = articleRepository;
         this.commentRepository = commentRepository;
         this.hashTagService = hashTagService;
         this.fileService = fileService;
         this.userService = userService;
+        this.likeService = likeService;
     }
 
     @Transactional
@@ -91,6 +96,17 @@ public class ArticleService {
 
     public ArticleInfo findArticleInfo(long articleId) {
         long countOfComments = commentRepository.countByArticleId(articleId);
-        return ArticleAssembler.toArticleInfo(findById(articleId),countOfComments);
+        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments);
+    }
+
+    public void like(long articleId, long userId) {
+        Article article = articleRepository.findById(articleId).orElseThrow(EntityNotFoundException::new);
+        User user = userService.findUserById(userId);
+        likeService.like(article, user);
+    }
+
+    public List<UserInfo> findLikerListById(long articleId) {
+        Article article = articleRepository.findById(articleId).orElseThrow(EntityNotFoundException::new);
+        return likeService.findLikerList(article);
     }
 }

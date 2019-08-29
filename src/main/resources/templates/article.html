@@ -4,9 +4,9 @@
       xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="head">
     <title>woostagram</title>
-    <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/card.css">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/card.css" rel="stylesheet">
 </th:block>
 
 <th:block layout:fragment="content">
@@ -16,10 +16,10 @@
                 <div class="container-fluid max-width-lg mx-auto">
                     <div class="row">
                         <div class="col-lg-7 mx-auto">
-                            <button type="button" id="write-article-button" class="btn btn-outline-primary">
+                            <button class="btn btn-outline-primary" id="write-article-button" type="button">
                                 피드 작성
                             </button>
-                            <div id="cards" class="card widget-feed no-pdd mrg-btm-70">
+                            <div class="card widget-feed no-pdd mrg-btm-70" id="cards">
                                 <!-- insert card-->
                             </div>
                         </div>
@@ -33,10 +33,12 @@
     <script src="/js/article.js"></script>
     <script src="/js/fileLoadApi.js"></script>
     <script src="/js/card.js"></script>
-    <script src="/js/template.js"></script>x
-    <script src="/js/comment.js"></script>x
+    <script src="/js/template.js"></script>
+    x
+    <script src="/js/comment.js"></script>
+    x
     <script th:inline="javascript">
-        (function() {
+        (function () {
             const cards = document.getElementById('cards');
             const articleId = [[${articleId}]];
 

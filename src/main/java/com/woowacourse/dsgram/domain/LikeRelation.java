@@ -8,24 +8,21 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = {"id"})
-public class Follow extends BaseEntity {
-
+public class LikeRelation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @ManyToOne
-    @JoinColumn(name = "follower")
-    User from;
+    private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "followed")
-    User to;
+    @JoinColumn(name = "likeUser")
+    private User user;
 
     @Builder
-    public Follow(User from, User to) {
-        this.from = from;
-        this.to = to;
+    public LikeRelation(Article article, User user) {
+        this.article = article;
+        this.user = user;
     }
-
 }

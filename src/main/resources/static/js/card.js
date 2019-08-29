@@ -78,7 +78,7 @@ const CARD_APP = (() => {
 
         return {
             deleteCard: deleteCard,
-            changeEditForm: changeEditForm
+            changeEditForm: changeEditForm,
         }
     };
 

@@ -30,7 +30,7 @@ public class FeedApiControllerTest extends AbstractControllerTest {
 
     @Test
     void 팔로우_성공() {
-       followOrUnfollow(followRequest)
+        followOrUnfollow(followRequest)
                 .expectStatus().isOk();
 
         requestUserFeed(signUpUserRequest2.getNickName(), cookie)

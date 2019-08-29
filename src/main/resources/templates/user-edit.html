@@ -22,15 +22,15 @@
                                             <img alt=""
                                                  id="profile-image"
                                                  src="https://avatars3.githubusercontent.com/u/46308949?s=460&v=4"
-                                                 width="70" style="border-radius: 50px">
+                                                 style="border-radius: 50px" width="70">
                                         </label>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="font-size-20"><b th:text="${user.nickName}">Nick Name</b></div>
                                         <label class="mrg-top-5 pointer text-bold" for="img-upload"
                                                style="color:dodgerblue;">프로필 사진 바꾸기</label>
-                                        <input class="d-none" id="img-upload" name="uploadedimages0"
-                                               accept="image/*"
+                                        <input accept="image/*" class="d-none" id="img-upload"
+                                               name="uploadedimages0"
                                                type="file">
                                     </div>
                                 </div>
@@ -40,8 +40,8 @@
                                         <label class="mrg-top-10 text-dark"><b>이름</b></label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input id="user-name" class="form-control text-bold" name="name"
-                                               th:value="${user.userName}" minlength="2" maxlength="10" required>
+                                        <input class="form-control text-bold" id="user-name" maxlength="10"
+                                               minlength="2" name="name" required th:value="${user.userName}">
                                     </div>
                                 </div>
                                 <hr>
@@ -50,8 +50,8 @@
                                         <label class="mrg-top-10 text-dark"><b>닉네임</b></label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input id="nick-name" class="form-control text-bold" name="nickName" type="text"
-                                               th:value="${user.nickName}" minlength="2" maxlength="10" required>
+                                        <input class="form-control text-bold" id="nick-name" maxlength="10" minlength="2"
+                                               name="nickName" required th:value="${user.nickName}" type="text">
                                     </div>
                                 </div>
                                 <hr>
@@ -60,8 +60,8 @@
                                         <label class="mrg-top-10 text-dark"><b>웹 사이트</b></label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input id="webSite" class="form-control text-bold" name="usersite" type="text"
-                                               th:value="${user.webSite}">
+                                        <input class="form-control text-bold" id="webSite" name="usersite" th:value="${user.webSite}"
+                                               type="text">
                                     </div>
                                 </div>
                                 <hr>
@@ -70,8 +70,8 @@
                                         <label class="mrg-top-10 text-dark"><b>소개</b></label>
                                     </div>
                                     <div class="col-md-8">
-                                        <textarea id="intro" class="form-control text-bold" name="intro" type="text"
-                                                  th:text="${user.intro}"></textarea>
+                                        <textarea class="form-control text-bold" id="intro" name="intro" th:text="${user.intro}"
+                                                  type="text"></textarea>
                                     </div>
                                 </div>
                                 <hr>
@@ -80,17 +80,17 @@
                                         <label class="mrg-top-10 text-dark"><b>비밀번호</b></label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input id="password" class="form-control text-bold" name="password"
-                                               type="password"
-                                               th:value="${user.password}" minlength="4" maxlength="16" required>
+                                        <input class="form-control text-bold" id="password" maxlength="16"
+                                               minlength="4"
+                                               name="password" required th:value="${user.password}" type="password">
                                     </div>
                                 </div>
                                 <hr>
-                                <input type="hidden" id="userId" th:value="${user.id}">
+                                <input id="userId" th:value="${user.id}" type="hidden">
                                 <div class="text-center">
-                                    <button id="editButton" class="btn btn-info mrg-top-20 bottom-5">수정</button>
-                                    <button class="btn btn-danger mrg-top-20 bottom-5" data-toggle="modal"
-                                            data-target="#exampleModal" onclick="return false;">삭제
+                                    <button class="btn btn-info mrg-top-20 bottom-5" id="editButton">수정</button>
+                                    <button class="btn btn-danger mrg-top-20 bottom-5" data-target="#exampleModal"
+                                            data-toggle="modal" onclick="return false;">삭제
                                     </button>
                                 </div>
                             </div>
@@ -102,13 +102,13 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" role="dialog"
+         tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">회원 탈퇴</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -116,8 +116,8 @@
                     정말 삭제하시겠습니까?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button id="deleteButton" type="button" class="btn btn-danger">삭제</button>
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">취소</button>
+                    <button class="btn btn-danger" id="deleteButton" type="button">삭제</button>
                 </div>
             </div>
         </div>

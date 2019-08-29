@@ -2,26 +2,26 @@
 <div class="feed-header padding-15">
     <ul class="list-unstyled list-info">
         <li>
-            <img class="thumb-img img-circle" src="/images/default/default_profile.png"
-                 alt="">
+            <img alt="" class="thumb-img img-circle"
+                 src="/images/default/default_profile.png">
             <div class="info">
-                <a href="" th:text="${article.author.nickName}"
-                   class="title no-pdd-vertical text-bold inline-block font-size-15"></a>
+                <a class="title no-pdd-vertical text-bold inline-block font-size-15" href=""
+                   th:text="${article.author.nickName}"></a>
             </div>
         </li>
-        <a class="pointer absolute top-10 right-0" data-toggle="dropdown"
-           aria-expanded="false">
+        <a aria-expanded="false" class="pointer absolute top-10 right-0"
+           data-toggle="dropdown">
                                        <span class="btn-icon text-dark">
                                            <i class="ti-more font-size-16"></i>
                                        </span>
         </a>
         <ul class="dropdown-menu">
             <li>
-                <a th:id="'article-edit-' + ${article.id}" th:data-id='${article.id}' class="pointer article-edit">
+                <a class="pointer article-edit" th:data-id='${article.id}' th:id="'article-edit-' + ${article.id}">
                     <i class="ti-pencil pdd-right-10 text-dark"></i>
                     <span class="">게시글 수정</span>
                 </a>
-                <a th:id="'article-delete-' + ${article.id}" th:data-id='${article.id}' class="pointer article-delete">
+                <a class="pointer article-delete" th:data-id='${article.id}' th:id="'article-delete-' + ${article.id}">
                     <i class="ti-trash pdd-right-10 text-dark"></i>
                     <span class="">게시글 삭제</span>
                 </a>
@@ -30,10 +30,10 @@
     </ul>
 </div>
 <div class="feed-body no-pdd">
-    <img th:id="'article-image-' + ${article.id}" class="img-fluid" src="" alt=""
-         style="display: none; width: 100%;">
-    <video th:id="'article-video-' + ${article.id}" controls autoplay loop src=""
-           style="display: none; width: 100%;">
+    <img alt="" class="img-fluid" src="" style="display: none; width: 100%;"
+         th:id="'article-image-' + ${article.id}">
+    <video autoplay controls loop src="" style="display: none; width: 100%;"
+           th:id="'article-video-' + ${article.id}">
     </video>
 </div>
 <ul class="feed-action pdd-horizon-15 pdd-top-5">
@@ -53,7 +53,7 @@
     </li>
 
     <li class="float-right">
-        <a href="" class="pdd-right-0">
+        <a class="pdd-right-0" href="">
             <i class="fa fa-bookmark font-size-25"></i>
         </a>
     </li>
@@ -65,10 +65,10 @@
         좋아합니다.
     </p>
 </div>
-<div th:id="'article-contents-' + ${article.id}" class="feed-contents pdd-left-15">
+<div class="feed-contents pdd-left-15" th:id="'article-contents-' + ${article.id}">
     <p class="contents" th:text="${article.contents}"></p>
     <form style="display: none;">
-        <input type="text" th:value="${article.contents}">
+        <input th:value="${article.contents}" type="text">
         <button type="button">수정</button>
     </form>
 </div>
@@ -81,7 +81,7 @@
 
         </ul>
         <div class="add-comment relative" th:data-article-id='${article.id}'>
-            <textarea rows="1" class="form-control text-dark padding-15" placeholder="댓글 달기..."></textarea>
+            <textarea class="form-control text-dark padding-15" placeholder="댓글 달기..." rows="1"></textarea>
             <div class="absolute top-5 right-0">
                 <button class="btn btn-default no-border text-gray comment-save-button">게시</button>
             </div>

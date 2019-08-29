@@ -1,6 +1,6 @@
 const COMMENT_APP = (() => {
 
-    const CommentController = function() {
+    const CommentController = function () {
         const commentService = new CommentService();
 
         const saveComment = () => {
@@ -18,10 +18,10 @@ const COMMENT_APP = (() => {
             }
         };
 
-    //todo 데이터를 받아온다음에 이벤트 리스너를 하는게아니라 먼저 리스너를 하기때문에 리스너가 등록이 안됨
+        //todo 데이터를 받아온다음에 이벤트 리스너를 하는게아니라 먼저 리스너를 하기때문에 리스너가 등록이 안됨
         //if span 이걸로 구분해야함
         const deleteComment = () => {
-            const deleteCommentButtons =  document.getElementsByClassName('comment-delete');
+            const deleteCommentButtons = document.getElementsByClassName('comment-delete');
             for (let i = 0; i < deleteCommentButtons.length; i++) {
                 deleteCommentButtons.item(i).addEventListener('click', commentService.deleteComment);
             }
@@ -39,7 +39,7 @@ const COMMENT_APP = (() => {
 
     };
 
-    const CommentService = function() {
+    const CommentService = function () {
         const save = event => {
             const connectors = FETCH_APP.FetchApi();
             let target = event.target;
@@ -66,9 +66,9 @@ const COMMENT_APP = (() => {
         const show = event => {
             let countOfComments = event.target.getAttribute('data-count-comment');
             let writtenComments = event.target.nextElementSibling.querySelectorAll('li').length.toString();
-            console.log('comments',countOfComments)
-            console.log('written',writtenComments)
-            if(countOfComments === writtenComments) {
+            console.log('comments', countOfComments)
+            console.log('written', writtenComments)
+            if (countOfComments === writtenComments) {
                 alert('모든 댓글을 가져왔습니다.')
                 return;
             }
@@ -107,20 +107,20 @@ const COMMENT_APP = (() => {
         const deleteComment = event => {
             const connector = FETCH_APP.FetchApi();
             let commentId = event.target.getAttribute('data-comment-id');
-            console.log("*********",commentId)
+            console.log("*********", commentId)
             const ifSucceed = () => {
-                event.target.parentElement.parentElement.innerHTML='';
+                event.target.parentElement.parentElement.innerHTML = '';
                 alert('댓글이 삭제 되었습니다.');
             }
             console.log('before')
-            connector.fetchTemplateWithoutBody('/api/comments/'+commentId,connector.DELETE,ifSucceed());
+            connector.fetchTemplateWithoutBody('/api/comments/' + commentId, connector.DELETE, ifSucceed());
             console.log('after')
         }
 
         return {
             save: save,
             show: show,
-            deleteComment:deleteComment,
+            deleteComment: deleteComment,
         }
 
     };

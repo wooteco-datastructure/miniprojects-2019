@@ -39,15 +39,7 @@ class UserServiceTest {
             .nickName("buddy_")
             .password("Aa12345!")
             .build();
-
-    private OAuthUserInfoResponse userInfo = OAuthUserInfoResponse.builder()
-            .email(user.getEmail())
-            .login(user.getNickName())
-            .name(user.getUserName())
-            .build();
-
     private final AuthUserRequest authUserRequest = new AuthUserRequest("buddy@buddy.com", "Aa12345!");
-
     private final EditUserRequest editUserRequest = EditUserRequest.builder()
             .userName("qwe")
             .file(Optional.empty())
@@ -56,20 +48,19 @@ class UserServiceTest {
             .password("qweqwe")
             .webSite("qwe")
             .build();
-
     private final LoggedInUser loggedInUser = new LoggedInUser(1L, "buddy@buddy.com", "buddy_", "김버디");
-
     private final String code = "af70401e9c65f83fe29e";
     private final String sampleToken = "mq4m38cvt3ucw498ub2er";
     private final String email = "buddy@buddy.com";
-
-
-    @InjectMocks
-    private UserService userService;
-
     @Mock
     UserRepository userRepository;
-
+    private OAuthUserInfoResponse userInfo = OAuthUserInfoResponse.builder()
+            .email(user.getEmail())
+            .login(user.getNickName())
+            .name(user.getUserName())
+            .build();
+    @InjectMocks
+    private UserService userService;
     @Mock
     private GithubClient githubClient;
 
