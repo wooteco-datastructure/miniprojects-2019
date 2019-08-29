@@ -20,7 +20,7 @@ public class FeedController {
     @GetMapping("/user/{nickName}")
     public String showFeed(@PathVariable String nickName, @UserSession LoggedInUser loggedInUser, Model model) {
         FeedInfo feedInfo = facade.getFeedInfo(loggedInUser.getNickName(), nickName);
-        model.addAttribute("feedInfo",feedInfo);
+        model.addAttribute("feedInfo", feedInfo);
         return "my-feed";
     }
 

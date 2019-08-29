@@ -12,11 +12,6 @@ const ARTICLE_APP = (() => {
             articleSaveButton ? articleSaveButton.addEventListener('click', articleService.save) : undefined;
         };
 
-        const writeArticle = () => {
-            const writeArticleButton = document.getElementById('write-article-button');
-            writeArticleButton ? writeArticleButton.addEventListener('click', articleService.writeArticle) : undefined;
-        };
-
         const showThumbnail = () => {
             const imageInput = document.getElementById("file");
             imageInput ? imageInput.addEventListener("change", articleService.changeImageJustOnFront) : undefined;
@@ -24,7 +19,6 @@ const ARTICLE_APP = (() => {
 
         const init = () => {
             saveArticle();
-            writeArticle();
             showThumbnail();
             loadArticles();
         };
@@ -56,10 +50,6 @@ const ARTICLE_APP = (() => {
                 response.json().then(articleId => window.location.href = `/articles/${articleId}`);
             };
             connector.fetchTemplate('/api/articles', connector.POST, {}, formData, redirectToArticlePage);
-        };
-
-        const writeArticle = () => {
-            location.href = "/articles/writing";
         };
 
         // TODO User꺼랑 합치기!!
@@ -106,7 +96,6 @@ const ARTICLE_APP = (() => {
 
         return {
             save: save,
-            writeArticle: writeArticle,
             changeImageJustOnFront: changeImageJustOnFront,
             loadArticles: loadArticles
         }
