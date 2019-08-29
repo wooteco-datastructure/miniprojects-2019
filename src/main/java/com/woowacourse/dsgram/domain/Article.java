@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Getter
 @EqualsAndHashCode(of = {"id"})
 public class Article extends BaseEntity implements Comparable<Article> {
-    private static final String REGEX = "#([0-9a-zA-Z가-힣_]{2,30})";
+    private static final String REGEX = "#([0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣_]+)";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
