@@ -57,12 +57,12 @@
                                         <span class="text-bold mrg-right-20"
                                               th:text="${feedInfo.articles.size()}"></span>
                                         <span>팔로워</span>
-                                        <span class="text-bold mrg-right-20" data-target="#follow-list"
+                                        <span class="pointer text-bold mrg-right-20" data-target="#follow-list"
                                               data-toggle="modal"
                                               id="followers" th:text="${feedInfo.followers}"></span>
 
                                         <span>팔로잉</span>
-                                        <span class="text-bold mrg-right-20" data-target="#follow-list"
+                                        <span class="pointer text-bold mrg-right-20" data-target="#follow-list"
                                               data-toggle="modal"
                                               id="followings" th:text="${feedInfo.followings}"></span>
                                     </div>
@@ -93,7 +93,7 @@
                         <button type="button" id="write-article-button" class="btn btn-outline-primary"
                                 accesskey="w">피드 작성
                         </button>
-                        <div class="card widget-feed no-pdd mrg-btm-70" id="cards"
+                        <div id="cards">
 
                         </div>
                     </div>
