@@ -17,7 +17,6 @@ import java.util.List;
 public class CommentApiController {
 
     private CommentService commentService;
-    private String name;
 
     public CommentApiController(CommentService commentService) {
         this.commentService = commentService;

@@ -15,9 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class FollowService {
     private final FollowRepository followRepository;
+    private final UserService userService;
 
-    public FollowService(FollowRepository followRepository) {
+    public FollowService(FollowRepository followRepository, UserService userService) {
         this.followRepository = followRepository;
+        this.userService = userService;
     }
 
     public FollowRelation isFollowed(User guest, User feedOwner) {
@@ -69,5 +71,28 @@ public class FollowService {
 
     public boolean existRelation(User guest, User feedOwner) {
         return followRepository.existsByFromAndTo(guest, feedOwner);
+    }
+
+    public void follow(String fromNickName, String toNickName) {
+        User guest = userService.findByNickName(fromNickName);
+        User feedOwner = userService.findByNickName(toNickName);
+
+        if (!existRelation(guest, feedOwner)) {
+            save(guest, feedOwner);
+            return;
+        }
+        delete(guest, feedOwner);
+    }
+
+    public List<FollowInfo> getFollowers(String nickName) {
+        User user = userService.findByNickName(nickName);
+
+        return findFollowers(user);
+    }
+
+    public List<FollowInfo> getFollowings(String nickName) {
+        User user = userService.findByNickName(nickName);
+
+        return findFollowings(user);
     }
 }

@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/articles")
 public class ArticleController {
 
-    private ArticleService articleService;
-
-    public ArticleController(ArticleService articleService) {
-        this.articleService = articleService;
+    private ArticleController() {
     }
 
     @GetMapping("/writing")
