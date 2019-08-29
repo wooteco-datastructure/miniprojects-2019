@@ -9,7 +9,6 @@ import com.woowacourse.dsgram.service.dto.ArticleRequest;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.facade.Facade;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,12 +63,7 @@ public class ArticleApiController {
     }
 
     @GetMapping("/users/{userNickname}")
-    public ResponseEntity showUserArticles(@PathVariable String userNickname) {
-        List<Article> articles = articleService.findArticlesByAuthorNickName(userNickname)
-                .stream().sorted()
-                .collect(Collectors.toList());
-
-        List<ArticleInfo> articleInfos = articles.stream().map(article -> ArticleAssembler.toArticleInfo(article)).collect(Collectors.toList());
-        return ResponseEntity.ok(articleInfos);
+    public ResponseEntity showUserArticles(@PathVariable String userNickname, int page) {
+        return ResponseEntity.ok(articleService.findArticlesByAuthorNickName(page, userNickname));
     }
 }

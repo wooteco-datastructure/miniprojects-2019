@@ -20,5 +20,5 @@ public interface HashTagRepository extends JpaRepository<HashTag, Long> {
     @Query(FIND_ALL_BY_QUERY)
     List<HashTagSearchResult> findResult(@Param("query") String query);
 
-    Page<HashTag> findAllByKeywordContaining(Pageable pageable, String keyword);
+    Page<HashTag> findAllByKeywordContainingOrderByCreatedDate(Pageable pageable, String keyword);
 }

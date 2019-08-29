@@ -1,5 +1,5 @@
 const MY_FEED_APP = (() => {
-    'use strict'
+    'use strict';
 
     const myFeedService = function () {
         const connector = FETCH_APP.FetchApi();
@@ -9,7 +9,7 @@ const MY_FEED_APP = (() => {
         const cards = document.getElementById('cards');
 
         // TODO search-result.js와 중복!!
-        const loadArticles = (userNickname) => {
+        const loadArticles = userNickname => {
             const addArticle = response => {
                 response.json()
                     .then(articleInfos => {
@@ -28,11 +28,10 @@ const MY_FEED_APP = (() => {
         return {
             loadArticles: loadArticles
         }
-    }
+    };
 
     return {
         myFeedService: myFeedService
     }
-
 
 })();
