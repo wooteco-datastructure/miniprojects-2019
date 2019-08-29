@@ -1,8 +1,11 @@
-insert into file_info(id, file_name, file_path) values(1, 'sample_img_01.jpg', 'C:/Users/ohsang seo/Desktop/GitHub/miniprojects-2019/src/main/resources/static/images/default');
-insert into file_info(id, file_name, file_path) values(2, 'eastjun_profile.jpg', 'C:/Users/ohsang seo/Desktop/GitHub/miniprojects-2019/src/main/resources/static/images/default');
-insert into file_info(id, file_name, file_path) values(3, 'sample_img_02.jpg', 'C:/Users/ohsang seo/Desktop/GitHub/miniprojects-2019/src/main/resources/static/images/default');
-
-
+insert into file_info(id, file_name, file_path)
+values (1, 'sample_img_01.jpg', 'D:/workspace/miniprojects-2019/src/main/resources/static/images/default');
+insert into file_info(id, file_name, file_path)
+values (2, 'eastjun_profile.jpg', 'D:/workspace/miniprojects-2019/src/main/resources/static/images/default');
+insert into file_info(id, file_name, file_path)
+values (3, 'sample_img_02.jpg', 'D:/workspace/miniprojects-2019/src/main/resources/static/images/default');
+    
+    
 insert into user(id, email, nick_name, password, user_name, fileinfo_id, created_date, modified_date) values(1, 'qwe@naver.com', 'qwe', 'qweqwe', 'qwe',2, CURRENT_TIME(), CURRENT_TIME());
 insert into user(id, email, nick_name, password, user_name, fileinfo_id, created_date, modified_date) values(2, 'qwe2@naver.com', 'qwe2', 'qweqwe', 'qwe2',3, CURRENT_TIME(), CURRENT_TIME());
 

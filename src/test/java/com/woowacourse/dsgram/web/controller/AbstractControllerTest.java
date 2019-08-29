@@ -78,7 +78,7 @@ public class AbstractControllerTest {
     }
 
     ResponseSpec requestUserFeed(String nickName, String cookie) {
-        return webTestClient.get().uri("/user/{nickName}", nickName)
+        return webTestClient.get().uri("/users/{nickName}", nickName)
                 .header("cookie", cookie)
                 .exchange()
                 .expectStatus().isOk();
