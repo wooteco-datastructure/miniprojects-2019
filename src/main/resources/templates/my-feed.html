@@ -24,7 +24,8 @@
                                     <div>
                                         <input id="guest" th:value="${session.sessionUser.nickName}" type="hidden">
                                         <span class="user-id mrg-right-10" id="feedOwner"
-                                              th:text="${feedInfo.user.nickName}"></span>
+                                              th:text="${feedInfo.user.nickName}"
+                                              th:data-id="${feedInfo.user.id}"></span>
                                         <form th:if="${feedInfo.followRelation.name() == 'FOLLOW'}">
                                             <button class="btn btn-default" id="unfollow">언팔로우</button>
                                         </form>
@@ -132,17 +133,8 @@
         <script src="/js/header.js"></script>
         <script src="/js/card.js"></script>
         <script src="/js/observer.js"></script>
+        <script src="/js/myFeed.js"></script>
     </th:block>
 
-    <!--    // todo 이거 두개 없으면 파일 안보임-->
-    <script src="/js/fetchApi.js"></script>
-    <script src="/js/fileLoadApi.js"></script>
-    <script th:inline="javascript">
-        // TODO 무한 스크롤로 변경 시 이동
-        // TODO feedInfo 객체가 user 객체를 가지고 있는게 맞을까? feedInfo 통해 user password 접근이 가능해짐
-        const userNickname = [[${feedInfo.user.nickName}]];
-        const userId = [[${feedInfo.user.id}]];
-    </script>
-    <script src="/js/myFeed.js"></script>
 </th:block>
 </html>

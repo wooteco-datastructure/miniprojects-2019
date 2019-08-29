@@ -7,6 +7,7 @@ const MY_FEED_APP = (() => {
 
         const init = () => {
             observer.loadByObserve(myFeedService.loadArticles);
+            myFeedService.loadBigProfileImage();
         };
 
         return {
@@ -20,17 +21,21 @@ const MY_FEED_APP = (() => {
         const fileLoader = FILE_LOAD_APP.FileLoadService();
         const template = TEMPLATE_APP.TemplateService();
         const headerService = HEADER_APP.HeaderService();
+
         const cards = document.getElementById('cards');
         const articleCount = document.getElementById('article-count');
+        const userInfo = document.getElementById('feedOwner');
 
+        const loadBigProfileImage = () => {
+            fileLoader.loadProfileImageFile(fileLoader, userInfo.dataset.id, 'big-thumb-img-user-');
+        };
 
         // TODO search-result.js와 중복!!
         const loadArticles = page => {
-
+            const userNickName = userInfo.innerText;
             const addArticle = response => {
                 response.json()
                     .then(data => {
-                        debugger;
                         articleCount.innerText = data.totalElements;
 
                         data.content.forEach(articleInfo => {
@@ -42,11 +47,12 @@ const MY_FEED_APP = (() => {
                     });
             };
 
-            connector.fetchTemplateWithoutBody(`/api/articles/users/${userNickname}?page=${page}`, connector.GET, addArticle);
+            connector.fetchTemplateWithoutBody(`/api/articles/users/${userNickName}?page=${page}`, connector.GET, addArticle);
         };
 
         return {
-            loadArticles: loadArticles
+            loadArticles: loadArticles,
+            loadBigProfileImage: loadBigProfileImage
         };
     };
 
