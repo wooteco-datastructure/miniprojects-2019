@@ -71,7 +71,7 @@ public class Article extends BaseEntity implements Comparable<Article> {
 
     @Override
     public int compareTo(Article o) {
-        return o.renewTime.compareTo(this.renewTime);
+        return o.modifiedDate.compareTo(this.modifiedDate);
     }
 
     @Override
