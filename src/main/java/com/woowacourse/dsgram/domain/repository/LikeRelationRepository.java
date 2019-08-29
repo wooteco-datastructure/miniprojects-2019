@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface LikeRelationRepository extends JpaRepository<LikeRelation, Long> {
 
-    long countByArticle(Article article);
+    long countByArticleId(long articleId);
 
     boolean existsByArticleAndUser(Article article, User user);
 

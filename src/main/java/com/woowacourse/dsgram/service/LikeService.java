@@ -20,10 +20,6 @@ public class LikeService {
         this.likeRepository = likeRepository;
     }
 
-    public long getCountOfLike(Article article) {
-        return likeRepository.countByArticle(article);
-    }
-
     @Transactional
     public void like(Article article, User user) {
         LikeRelation likeRelation = new LikeRelation(article, user);

@@ -5,6 +5,7 @@ import com.woowacourse.dsgram.domain.FileInfo;
 import com.woowacourse.dsgram.domain.User;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
 import com.woowacourse.dsgram.domain.repository.CommentRepository;
+import com.woowacourse.dsgram.domain.repository.LikeRelationRepository;
 import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.ArticleInfo;
@@ -23,15 +24,16 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
+    private final LikeRelationRepository likeRelationRepository;
     private final HashTagService hashTagService;
     private final FileService fileService;
     private final UserService userService; // TODO: 빼고싶음
     private final LikeService likeService;
 
-    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository,
-                          HashTagService hashTagService, FileService fileService, UserService userService, LikeService likeService) {
+    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository, LikeRelationRepository likeRelationRepository, HashTagService hashTagService, FileService fileService, UserService userService, LikeService likeService) {
         this.articleRepository = articleRepository;
         this.commentRepository = commentRepository;
+        this.likeRelationRepository = likeRelationRepository;
         this.hashTagService = hashTagService;
         this.fileService = fileService;
         this.userService = userService;
@@ -96,7 +98,8 @@ public class ArticleService {
 
     public ArticleInfo findArticleInfo(long articleId) {
         long countOfComments = commentRepository.countByArticleId(articleId);
-        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments);
+        long countOfLikes = likeRelationRepository.countByArticleId(articleId);
+        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments, countOfLikes);
     }
 
     public void like(long articleId, long userId) {
