@@ -52,7 +52,6 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-
     @Transactional(readOnly = true)
     public Article findById(long articleId) {
         return articleRepository
@@ -91,6 +90,6 @@ public class ArticleService {
 
     public ArticleInfo findArticleInfo(long articleId) {
         long countOfComments = commentRepository.countByArticleId(articleId);
-        return ArticleAssembler.toArticleInfo(findById(articleId),countOfComments);
+        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments);
     }
 }

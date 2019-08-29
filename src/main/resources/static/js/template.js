@@ -28,8 +28,8 @@ TEMPLATE_APP = (() => {
                                     <div class="feed-header padding-15">
                                         <ul class="list-unstyled list-info">
                                             <li>
-                                                <img class="thumb-img img-circle" src="/images/default/default_profile.png"
-                                                     id="thumb-img-${articleInfo.articleId}" alt="">
+                                                <img class="thumb-img img-circle thumb-img-user-${articleInfo.userId}" src="/images/default/default_profile.png"
+                                                      alt="">
                                                 <div class="info">
                                                     <a href="" class="title no-pdd-vertical text-bold inline-block font-size-15">
                                                         ${articleInfo.nickName}</a>
@@ -115,9 +115,36 @@ TEMPLATE_APP = (() => {
             return template;
         };
 
+        const chatMessage = (message, sessionUserId) => {
+            let template;
+            if (message.from.id !== sessionUserId) {
+                template =
+                    `<div class="incoming_msg">
+                <div class="incoming_msg_img">
+                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                </div>
+                <div class="received_msg">
+                    <div>${message.from.nickName}</div>
+                    <div class="received_withd_msg">
+                      <p>${message.content}</p>
+                    </div>
+                </div>
+            </div>`;
+                return template;
+            }
+            template =
+                `<div class="outgoing_msg">
+            <div class="sent_msg">
+                <p>${message.content}</p>
+            </div>
+        </div>`;
+            return template;
+        };
+
         return {
             searchResult: searchResult,
             card: card,
+            chatMessage: chatMessage,
         }
     };
 
