@@ -1,9 +1,8 @@
 package com.woowacourse.dsgram.web.controller;
 
 import com.woowacourse.dsgram.service.FollowService;
-import com.woowacourse.dsgram.service.dto.FollowInfo;
-import com.woowacourse.dsgram.service.dto.FollowRequest;
-import org.springframework.http.HttpStatus;
+import com.woowacourse.dsgram.service.dto.follow.FollowInfo;
+import com.woowacourse.dsgram.service.dto.follow.FollowRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

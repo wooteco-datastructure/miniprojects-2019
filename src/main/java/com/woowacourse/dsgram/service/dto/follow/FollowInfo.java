@@ -1,4 +1,4 @@
-package com.woowacourse.dsgram.service.dto;
+package com.woowacourse.dsgram.service.dto.follow;
 
 import com.woowacourse.dsgram.domain.FileInfo;
 import lombok.*;

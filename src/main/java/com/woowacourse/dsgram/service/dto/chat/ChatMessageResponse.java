@@ -1,7 +1,10 @@
-package com.woowacourse.dsgram.service.dto;
+package com.woowacourse.dsgram.service.dto.chat;
 
 import com.woowacourse.dsgram.service.dto.user.UserDto;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter

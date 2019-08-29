@@ -6,7 +6,6 @@ import com.woowacourse.dsgram.service.dto.CommentRequest;
 import com.woowacourse.dsgram.service.dto.CommentResponse;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

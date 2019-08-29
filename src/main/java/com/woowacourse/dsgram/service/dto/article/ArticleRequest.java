@@ -1,4 +1,4 @@
-package com.woowacourse.dsgram.service.dto;
+package com.woowacourse.dsgram.service.dto.article;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;

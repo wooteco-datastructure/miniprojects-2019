@@ -2,6 +2,7 @@ package com.woowacourse.dsgram.service.dto;
 
 import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.User;
+import com.woowacourse.dsgram.service.dto.follow.FollowRelation;
 import lombok.*;
 
 import java.util.List;

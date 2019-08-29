@@ -1,6 +1,5 @@
 package com.woowacourse.dsgram.web.controller;
 
-import com.woowacourse.dsgram.service.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -6,7 +6,11 @@ import com.woowacourse.dsgram.domain.User;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
 import com.woowacourse.dsgram.domain.repository.CommentRepository;
 import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
-import com.woowacourse.dsgram.service.dto.*;
+import com.woowacourse.dsgram.service.dto.FeedInfo;
+import com.woowacourse.dsgram.service.dto.article.ArticleEditRequest;
+import com.woowacourse.dsgram.service.dto.article.ArticleInfo;
+import com.woowacourse.dsgram.service.dto.article.ArticleRequest;
+import com.woowacourse.dsgram.service.dto.follow.FollowRelation;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
 import org.springframework.stereotype.Service;
@@ -16,7 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ArticleService {

@@ -1,6 +1,9 @@
 package com.woowacourse.dsgram.service.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
