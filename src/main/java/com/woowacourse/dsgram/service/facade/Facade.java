@@ -73,9 +73,9 @@ public class Facade {
                 .stream().map(followInfo -> userService.findByNickName(followInfo.getNickName()))
                 .collect(Collectors.toList());
 
+        // TODO: 2019-08-29 임시처리 -> query로 바꾸기
         return articleService.findAll()
                 .stream().filter(article -> followings.contains(article.getAuthor()))
-                .sorted()
                 .collect(Collectors.toList());
     }
 }

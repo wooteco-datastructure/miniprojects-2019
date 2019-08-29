@@ -2,11 +2,10 @@ const SEARCH_APP = (() => {
 
     const SearchController = function () {
         const searchService = new SearchService();
-        const loadArticles = searchService.loadArticles;
         const observer = OBSERVER_APP.observeService();
 
         const init = () => {
-            observer.loadByObserve(loadArticles);
+            observer.loadByObserve(searchService.loadArticles);
         };
 
         return {
