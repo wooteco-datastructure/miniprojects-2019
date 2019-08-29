@@ -20,7 +20,7 @@ public class FeedApiController {
     @PostMapping("/follow")
     public ResponseEntity follow(@RequestBody FollowRequest followRequest) {
         followService.follow(followRequest.getFromNickName(), followRequest.getToNickName());
-        return new ResponseEntity(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/followers/{nickName}")

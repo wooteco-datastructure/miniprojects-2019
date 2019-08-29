@@ -25,26 +25,26 @@ public class CommentApiController {
     @PostMapping
     public ResponseEntity create(@RequestBody CommentRequest commentRequest, @UserSession LoggedInUser loggedInUser) {
         Comment savedComment = commentService.create(commentRequest, loggedInUser.getId());
-        return new ResponseEntity<>(savedComment, HttpStatus.OK);
+        return ResponseEntity.ok(savedComment);
     }
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity delete(@PathVariable("commentId") Long commentId, @UserSession LoggedInUser loggedInUser) {
         commentService.delete(commentId, loggedInUser.getId());
-        return new ResponseEntity(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{commentId}")
     public ResponseEntity update(@PathVariable("commentId") Long commentId, @UserSession LoggedInUser loggedInUser,
                                  @RequestBody CommentRequest commentRequest) {
         CommentResponse updatedComment = commentService.update(commentId, commentRequest, loggedInUser);
-        return new ResponseEntity<>(updatedComment, HttpStatus.OK);
+        return ResponseEntity.ok(updatedComment);
     }
 
     @GetMapping("/{articleId}")
     public ResponseEntity get(@PathVariable("articleId") Long articleId) {
         List<Comment> comments = commentService.get(articleId);
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+        return ResponseEntity.ok(comments);
     }
 
 }
