@@ -6,10 +6,12 @@ import com.woowacourse.dsgram.service.dto.CommentRequest;
 import com.woowacourse.dsgram.service.dto.CommentResponse;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/comments")
@@ -40,8 +42,9 @@ public class CommentApiController {
     }
 
     @GetMapping("/{articleId}")
-    public ResponseEntity get(@PathVariable("articleId") Long articleId) {
-        List<Comment> comments = commentService.get(articleId);
+    public ResponseEntity get(@PathVariable("articleId") Long articleId, @PageableDefault(sort = "id",
+            direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
+        Page<Comment> comments = commentService.get(articleId, pageable);
         return ResponseEntity.ok(comments);
     }
 }
