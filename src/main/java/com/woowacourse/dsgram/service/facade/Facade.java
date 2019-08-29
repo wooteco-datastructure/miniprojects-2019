@@ -6,8 +6,8 @@ import com.woowacourse.dsgram.service.ArticleService;
 import com.woowacourse.dsgram.service.FollowService;
 import com.woowacourse.dsgram.service.UserService;
 import com.woowacourse.dsgram.service.dto.FeedInfo;
-import com.woowacourse.dsgram.service.dto.FollowInfo;
 import com.woowacourse.dsgram.service.dto.FollowRelation;
+import com.woowacourse.dsgram.service.dto.UserInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,13 +55,13 @@ public class Facade {
         followService.delete(guest, feedOwner);
     }
 
-    public List<FollowInfo> getFollowers(String nickName) {
+    public List<UserInfo> getFollowers(String nickName) {
         User user = userService.findByNickName(nickName);
 
         return followService.findFollowers(user);
     }
 
-    public List<FollowInfo> getFollowings(String nickName) {
+    public List<UserInfo> getFollowings(String nickName) {
         User user = userService.findByNickName(nickName);
 
         return followService.findFollowings(user);
@@ -70,7 +70,7 @@ public class Facade {
     public List<Article> getArticlesByFollowings(String nickName) {
         User user = userService.findByNickName(nickName);
         List<User> followings = followService.findFollowings(user)
-                .stream().map(followInfo -> userService.findByNickName(followInfo.getNickName()))
+                .stream().map(userInfo -> userService.findByNickName(userInfo.getNickName()))
                 .collect(Collectors.toList());
 
         return articleService.findAll()

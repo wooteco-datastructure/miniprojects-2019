@@ -1,6 +1,7 @@
 package com.woowacourse.dsgram.web.controller;
 
 import com.woowacourse.dsgram.domain.Article;
+import com.woowacourse.dsgram.domain.FileInfo;
 import com.woowacourse.dsgram.service.ArticleService;
 import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
@@ -9,7 +10,6 @@ import com.woowacourse.dsgram.service.dto.ArticleRequest;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.facade.Facade;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,7 +59,9 @@ public class ArticleApiController {
     @GetMapping
     public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser) {
         List<Article> articles = facade.getArticlesByFollowings(loggedInUser.getNickName());
-        List<ArticleInfo> articleInfos = articles.stream().map(article -> ArticleAssembler.toArticleInfo(article)).collect(Collectors.toList());
+        List<ArticleInfo> articleInfos = articles.stream()
+                .map(ArticleAssembler::toArticleInfo)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(articleInfos);
     }
 
@@ -69,7 +71,22 @@ public class ArticleApiController {
                 .stream().sorted()
                 .collect(Collectors.toList());
 
-        List<ArticleInfo> articleInfos = articles.stream().map(article -> ArticleAssembler.toArticleInfo(article)).collect(Collectors.toList());
+        List<ArticleInfo> articleInfos = articles.stream()
+                .map(ArticleAssembler::toArticleInfo)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(articleInfos);
+    }
+
+    @PostMapping("/{articleId}/like")
+    public ResponseEntity like(@PathVariable long articleId, @UserSession LoggedInUser loggedInUser) {
+        articleService.like(articleId, loggedInUser.getId());
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{articleId}/liker")
+    public ResponseEntity liker(@PathVariable long articleId) {
+        List<FileInfo> likerList = articleService.findLikerListById(articleId);
+        return ResponseEntity.ok(likerList);
     }
 }
