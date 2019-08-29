@@ -32,7 +32,7 @@ public class CommentService {
 
     public Comment create(CommentRequest commentRequest, Long userId) {
         if (isBlank(commentRequest.getContents())) {
-            throw new EmptyCommentRequestException();
+            throw new EmptyCommentRequestException("댓글의 내용을 입력해주세요.");
         }
         Comment comment = toComment(commentRequest, userId);
 
@@ -61,7 +61,7 @@ public class CommentService {
     @Transactional
     public CommentResponse update(Long commentId, CommentRequest commentRequest, LoggedInUser loggedInUser) {
         if (isBlank(commentRequest.getContents())) {
-            throw new EmptyCommentRequestException();
+            throw new EmptyCommentRequestException("댓글의 내용을 입력해주세요.");
         }
         Comment comment = commentRepository.findById(commentId).orElseThrow(NotFoundCommentException::new);
         comment.checkAccessibleAuthor(loggedInUser.getId());

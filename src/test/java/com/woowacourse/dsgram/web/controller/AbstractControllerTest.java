@@ -58,7 +58,7 @@ public class AbstractControllerTest {
         long[] articleId = new long[1];
         requestWithBodyBuilder(createMultipartBodyBuilder(), HttpMethod.POST, "/api/articles", cookie)
                 .expectBody()
-                .jsonPath("$.id")
+                .jsonPath("$")
                 .value(id -> articleId[0] = Long.parseLong(id.toString()));
 
         return articleId[0];
