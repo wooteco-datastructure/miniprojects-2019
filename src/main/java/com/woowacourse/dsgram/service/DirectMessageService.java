@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @Service
 public class DirectMessageService {
-
     private final ChatMessageRepository chatMessageRepository;
     private final ChatUserRepository chatUserRepository;
     private final ChatRoomRepository chatRoomRepository;

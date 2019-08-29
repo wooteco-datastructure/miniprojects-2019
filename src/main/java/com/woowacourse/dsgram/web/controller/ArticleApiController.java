@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/articles")
 public class ArticleApiController {
-
     private ArticleService articleService;
 
     public ArticleApiController(ArticleService articleService) {

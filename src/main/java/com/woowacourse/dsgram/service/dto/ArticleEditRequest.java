@@ -1,24 +1,15 @@
 package com.woowacourse.dsgram.service.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Setter
+@ToString
 public class ArticleEditRequest {
     private String contents;
 
     public ArticleEditRequest(String contents) {
         this.contents = contents;
-    }
-
-    @Override
-    public String toString() {
-        return "ArticleEditRequest{" +
-                "contents='" + contents + '\'' +
-                '}';
     }
 }

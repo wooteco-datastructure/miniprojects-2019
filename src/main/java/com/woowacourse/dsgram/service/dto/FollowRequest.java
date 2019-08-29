@@ -2,9 +2,10 @@ package com.woowacourse.dsgram.service.dto;
 
 import lombok.*;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
 public class FollowRequest {
     private String fromNickName;
     private String toNickName;

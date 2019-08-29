@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/comments")
 public class CommentApiController {
-
     private CommentService commentService;
 
     public CommentApiController(CommentService commentService) {
@@ -46,5 +45,4 @@ public class CommentApiController {
         List<Comment> comments = commentService.get(articleId);
         return ResponseEntity.ok(comments);
     }
-
 }

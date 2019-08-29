@@ -1,11 +1,10 @@
 package com.woowacourse.dsgram.service.dto;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
+@ToString
 public class ChatMessageRequest {
     private long from;
     private String content;

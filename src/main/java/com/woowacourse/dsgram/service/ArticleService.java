@@ -20,7 +20,6 @@ import static java.util.stream.Collectors.*;
 
 @Service
 public class ArticleService {
-
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
     private final HashTagService hashTagService;

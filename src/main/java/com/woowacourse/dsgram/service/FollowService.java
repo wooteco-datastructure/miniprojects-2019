@@ -53,7 +53,6 @@ public class FollowService {
         return followRepository.countByFrom(user);
     }
 
-
     private Follow getFollow(User guest, User feedOwner) {
         return followRepository.findByFromAndTo(guest, feedOwner);
     }
