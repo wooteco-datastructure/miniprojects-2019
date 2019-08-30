@@ -26,9 +26,9 @@ TEMPLATE_APP = (() => {
             const template =
                 `<li class="comment-item no-pdd" data-comment-id="${commentId}" style="border-bottom:none;">
                        <div class="info pdd-left-15 pdd-vertical-5">
-                           <span class="title no-pdd-vertical inline-block font-size-15">${contents}</span>
-                           <span class="font-size-14 text-bold" style="float: left; width: 7%;">${nickName}</span>
-                            <i class="ti-trash pdd-right-10 comment-delete text-dark" style="float: right; width: 6%;cursor:pointer;" data-comment-id="${commentId}"></i>
+                           <span class="font-size-14 text-bold"">${nickName}</span>
+                           <span class="no-pdd-vertical inline-block font-size-15" style="margin-left:3%">${contents}</span>
+                            <i class="ti-trash pdd-right-10 comment-delete text-dark" style="float: right; width: 6%; cursor:pointer;" data-comment-id="${commentId}"></i>
                         </div>
                    </li>`;
             return template;
@@ -36,7 +36,7 @@ TEMPLATE_APP = (() => {
 
         const card = articleInfo => {
             const template =
-                `<div class="card widget-feed no-pdd mrg-btm-70 shadow-sm">
+                `<div id="${articleInfo.articleId}" class="article-card card widget-feed no-pdd mrg-btm-70 shadow-sm">
                                     <div class="feed-header padding-15">
                                         <ul class="list-unstyled list-info">
                                             <li>
@@ -76,12 +76,13 @@ TEMPLATE_APP = (() => {
                                     </div>
                                     <ul class="feed-action pdd-horizon-15 pdd-top-5">
                                         <li>
-                                            <a href="">
-                                                <i class="fa fa-heart activated-heart font-size-25"></i>
+                                            <a> 
+                                                <input id="like-state-${articleInfo.articleId}" type="hidden" value="${articleInfo.like}">
+                                                <i class="fa ${articleInfo.like ? 'fa-heart' : 'fa-heart-o'} activated-heart font-size-25" style="display: block"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="">
+                                            <a href="#">
                                                 <i class="ti-comment font-size-22"></i>
                                             </a>
                                         </li>
@@ -98,7 +99,7 @@ TEMPLATE_APP = (() => {
                                     <div class="feedback-status-container pdd-horizon-15">
                                         <img class="mini-profile-img" src="/images/default/eastjun_profile.jpg">
                                         <p class="no-mrg pdd-left-5 d-inline-block">
-                                            <span class="text-bold">${articleInfo.countOfLikes}</span>명이
+                                            <span id="count-like-${articleInfo.articleId}" class="text-bold">${articleInfo.countOfLikes}</span>명이
                                             좋아합니다.
                                         </p>
                                     </div>
@@ -111,7 +112,7 @@ TEMPLATE_APP = (() => {
                                     </div>
                                     <div class="feed-footer">
                                         <div class="comment" data-article-id="${articleInfo.articleId}">
-                                            <span class="show-comment mrg-left-10" data-count-comment="${articleInfo.countOfComments}"> ${articleInfo.countOfComments}개 댓글 더보기</span>
+                                            <span class="show-comment mrg-left-10" data-count-comment="${articleInfo.countOfComments}"><span class="count-of-comments">${articleInfo.countOfComments}</span>개 댓글 더보기</span>
                                             <ul class="list-unstyled list-info pdd-horizon-5"></ul>
                                             <div class="add-comment relative">
                                                 <textarea rows="1" class="form-control text-dark padding-15"
@@ -125,6 +126,13 @@ TEMPLATE_APP = (() => {
                                 </div>`;
             return template;
         };
+
+        const heartState = (toggle) => {
+            if(toggle) {
+                return '<i class="fa fa-heart activated-heart font-size-25"></i>'
+            }
+            return '<i class="far fa-heart activated-heart font-size-25"></i>'
+        }
 
         const chatMessage = (message, sessionUserId) => {
             let template;

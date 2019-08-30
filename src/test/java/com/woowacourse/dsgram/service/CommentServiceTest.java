@@ -30,10 +30,11 @@ public class CommentServiceTest {
     CommentRepository commentRepository;
 
     @Mock
-    ArticleRepository articleRepository;
+    ArticleService articleService;
 
     @Mock
-    UserRepository userRepository;
+    UserService userService;
+
 
     private CommentRequest commentRequest;
     private Comment comment;
@@ -73,8 +74,9 @@ public class CommentServiceTest {
 
     @Test
     void create() {
-        given(articleRepository.findById(commentRequest.getArticleId())).willReturn(Optional.ofNullable(article));
-        given(userRepository.findById(userId)).willReturn(Optional.ofNullable(user));
+        given(articleService.findById(commentRequest.getArticleId())).willReturn(article);
+        given(userService.findUserById(userId)).willReturn(user);
+
 
         commentService.create(commentRequest, userId);
 
