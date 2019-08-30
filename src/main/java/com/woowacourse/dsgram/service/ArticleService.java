@@ -104,28 +104,34 @@ public class ArticleService {
         return articleRepository.findAllByAuthorNickNameOrderByCreatedDateDesc(nickName);
     }
 
-    public Page<ArticleInfo> findArticlesByAuthorNickName(int page, String nickName) {
+    public Page<ArticleInfo> findArticlesByAuthorNickName(int page, String nickName, long viewerId) {
         userService.findByNickName(nickName);
         return articleRepository
                 .findAllByAuthorNickNameOrderByCreatedDateDesc(PageRequest.of(page, 10), nickName)
-                .map(article -> ArticleAssembler.toArticleInfo(article, getCountOfComments(article.getId()), getCountOfLikes(article.getId())));
+                .map(article -> findArticleInfo(article.getId(),viewerId));
     }
 
-    public ArticleInfo findArticleInfo(long articleId) {
+    public ArticleInfo findArticleInfo(long articleId, long viewerId) {
         long countOfComments = getCountOfComments(articleId);
         long countOfLikes = getCountOfLikes(articleId);
-        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments, countOfLikes);
+
+        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments,
+                countOfLikes,isLike(articleId,viewerId));
     }
 
     private long getCountOfLikes(long articleId) {
         return likeRelationRepository.countByArticleId(articleId);
     }
 
+    private boolean isLike(long articleId, long viewerId) {
+        return likeRelationRepository.existsByArticleIdAndUserId(articleId,viewerId);
+    }
+
     private long getCountOfComments(long articleId) {
         return commentRepository.countByArticleId(articleId);
     }
 
-    public List<Article> getArticlesByFollowings(String nickName) {
+    public List<ArticleInfo> getArticlesByFollowings(String nickName, long viewerId) {
         User user = userService.findByNickName(nickName);
         List<User> followings = followService.findFollowings(user)
                 .stream().map(followInfo -> userService.findByNickName(followInfo.getNickName()))
@@ -133,6 +139,7 @@ public class ArticleService {
 
         return findAll()
                 .stream().filter(article -> followings.contains(article.getAuthor()))
+                .map(article -> findArticleInfo(article.getId(), viewerId))
                 .collect(toList());
     }
 

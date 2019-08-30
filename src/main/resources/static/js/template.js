@@ -78,7 +78,7 @@ TEMPLATE_APP = (() => {
                                         <li>
                                             <a> 
                                                 <input id="like-state-${articleInfo.articleId}" type="hidden" value="${articleInfo.like}">
-                                                <i class="fa ${articleInfo.like ? 'fa-heart' : 'fa-heart-o'} activated-heart font-size-25" style="display: block"></i>
+                                                <i class="fa ${articleInfo.likeState ? 'fa-heart' : 'fa-heart-o'} activated-heart font-size-25" style="display: block"></i>
                                             </a>
                                         </li>
                                         <li>
