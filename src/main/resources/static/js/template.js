@@ -22,9 +22,21 @@ TEMPLATE_APP = (() => {
             return template;
         };
 
+        const comment = (contents, nickName, commentId) => {
+            const template =
+                `<li class="comment-item no-pdd" data-comment-id="${commentId}" style="border-bottom:none;">
+                       <div class="info pdd-left-15 pdd-vertical-5">
+                           <span class="font-size-14 text-bold"">${nickName}</span>
+                           <span class="no-pdd-vertical inline-block font-size-15" style="margin-left:3%">${contents}</span>
+                            <i class="ti-trash pdd-right-10 comment-delete text-dark" style="float: right; width: 6%; cursor:pointer;" data-comment-id="${commentId}"></i>
+                        </div>
+                   </li>`;
+            return template;
+        };
+
         const card = articleInfo => {
             const template =
-                `<div class="card widget-feed no-pdd mrg-btm-70 shadow-sm">
+                `<div id="${articleInfo.articleId}" class="article-card card widget-feed no-pdd mrg-btm-70 shadow-sm">
                                     <div class="feed-header padding-15">
                                         <ul class="list-unstyled list-info">
                                             <li>
@@ -64,18 +76,18 @@ TEMPLATE_APP = (() => {
                                     </div>
                                     <ul class="feed-action pdd-horizon-15 pdd-top-5">
                                         <li>
-                                            <a href="">
-                                                <i class="fa fa-heart activated-heart font-size-25"></i>
+                                            <a> 
+                                                <input id="like-state-${articleInfo.articleId}" type="hidden" value="${articleInfo.like}">
+                                                <i class="fa ${articleInfo.like ? 'fa-heart' : 'fa-heart-o'} activated-heart font-size-25" style="display: block"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="">
+                                            <a href="#">
                                                 <i class="ti-comment font-size-22"></i>
                                             </a>
                                         </li>
-                                        <li>
-                                            <i class="ti-export font-size-22"
-                                               onclick="copyUrl(${articleInfo.articleId})"></i>
+                                        <li data-article=id="${articleInfo.articleId})" class="copyUrl" style="cursor:pointer;">
+                                            <i class="ti-export font-size-22"></i>
                                         </li>
 
                                         <li class="float-right">
@@ -87,7 +99,7 @@ TEMPLATE_APP = (() => {
                                     <div class="feedback-status-container pdd-horizon-15">
                                         <img class="mini-profile-img" src="/images/default/eastjun_profile.jpg">
                                         <p class="no-mrg pdd-left-5 d-inline-block">
-                                            <span class="text-bold">${articleInfo.countOfLikes}</span>명이
+                                            <span id="count-like-${articleInfo.articleId}" class="text-bold">${articleInfo.countOfLikes}</span>명이
                                             좋아합니다.
                                         </p>
                                     </div>
@@ -99,14 +111,14 @@ TEMPLATE_APP = (() => {
                                         </form>
                                     </div>
                                     <div class="feed-footer">
-                                        <div class="comment">
-                                            <span class="show-comment mrg-left-10" data-count-comment="${articleInfo.countOfComments}"> ${articleInfo.countOfComments}개 댓글 모두 보기</span>
+                                        <div class="comment" data-article-id="${articleInfo.articleId}">
+                                            <span class="show-comment mrg-left-10" data-count-comment="${articleInfo.countOfComments}"><span class="count-of-comments">${articleInfo.countOfComments}</span>개 댓글 더보기</span>
                                             <ul class="list-unstyled list-info pdd-horizon-5"></ul>
-                                            <div class="add-comment relative" data-article-id="${articleInfo.articleId}">
+                                            <div class="add-comment relative">
                                                 <textarea rows="1" class="form-control text-dark padding-15"
                                                   placeholder="댓글 달기..."></textarea>
                                                 <div class="absolute top-5 right-0">
-                                                    <button class="btn btn-default no-border text-gray comment-save-button">게시</button>
+                                                    <button class="btn btn-default no-border text-gray comment-save-button" data-article-id="${articleInfo.articleId}">게시</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -114,6 +126,13 @@ TEMPLATE_APP = (() => {
                                 </div>`;
             return template;
         };
+
+        const heartState = (toggle) => {
+            if(toggle) {
+                return '<i class="fa fa-heart activated-heart font-size-25"></i>'
+            }
+            return '<i class="far fa-heart activated-heart font-size-25"></i>'
+        }
 
         const chatMessage = (message, sessionUserId) => {
             let template;
@@ -145,6 +164,7 @@ TEMPLATE_APP = (() => {
             searchResult: searchResult,
             card: card,
             chatMessage: chatMessage,
+            comment: comment,
         }
     };
 
