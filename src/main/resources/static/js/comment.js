@@ -63,7 +63,6 @@ const COMMENT_APP = (() => {
                 target.parentNode.parentNode.querySelector('textarea').value = '';
                 let addedCountOfComment = Number(target.parentElement.parentElement.parentElement.querySelector('span').getAttribute('data-count-comment')) + 1;
                 target.parentElement.parentElement.parentElement.querySelector('span').setAttribute('data-count-comment', addedCountOfComment);
-                target.parentElement.parentElement.parentElement.querySelector('.show-comment').innerText = addedCountOfComment + '개 댓글 더보기';
             };
 
             connector.fetchTemplate(`/api/comments`,
