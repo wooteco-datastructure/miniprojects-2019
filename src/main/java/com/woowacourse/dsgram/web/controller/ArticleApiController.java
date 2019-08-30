@@ -1,14 +1,13 @@
 package com.woowacourse.dsgram.web.controller;
 
 import com.woowacourse.dsgram.domain.Article;
-import com.woowacourse.dsgram.domain.FileInfo;
 import com.woowacourse.dsgram.service.ArticleService;
 import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
-import com.woowacourse.dsgram.service.dto.ArticleEditRequest;
-import com.woowacourse.dsgram.service.dto.ArticleInfo;
-import com.woowacourse.dsgram.service.dto.ArticleRequest;
+import com.woowacourse.dsgram.service.dto.article.ArticleEditRequest;
+import com.woowacourse.dsgram.service.dto.article.ArticleInfo;
+import com.woowacourse.dsgram.service.dto.article.ArticleRequest;
+import com.woowacourse.dsgram.service.dto.follow.FollowInfo;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
-import com.woowacourse.dsgram.service.facade.Facade;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +18,15 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/articles")
 public class ArticleApiController {
-    private final Facade facade;
-
     private ArticleService articleService;
 
-    public ArticleApiController(ArticleService articleService, Facade facade) {
+    public ArticleApiController(ArticleService articleService) {
         this.articleService = articleService;
-        this.facade = facade;
     }
 
     @PostMapping
     public ResponseEntity create(ArticleRequest articleRequest, @UserSession LoggedInUser loggedInUser) {
-        Long articleId = articleService.createAndFindId(articleRequest, loggedInUser);
+        long articleId = articleService.createAndFindId(articleRequest, loggedInUser);
         return ResponseEntity.ok(articleId);
     }
 
@@ -58,35 +54,27 @@ public class ArticleApiController {
 
     @GetMapping
     public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser) {
-        List<Article> articles = facade.getArticlesByFollowings(loggedInUser.getNickName());
-        List<ArticleInfo> articleInfos = articles.stream()
-                .map(ArticleAssembler::toArticleInfo)
-                .collect(Collectors.toList());
+        List<Article> articles = articleService.getArticlesByFollowings(loggedInUser.getNickName());
+        List<ArticleInfo> articleInfos = articles.stream().map(article -> ArticleAssembler.toArticleInfo(article)).collect(Collectors.toList());
         return ResponseEntity.ok(articleInfos);
     }
 
     @GetMapping("/users/{userNickname}")
-    public ResponseEntity showUserArticles(@PathVariable String userNickname) {
-        List<Article> articles = articleService.findArticlesByAuthorNickName(userNickname)
-                .stream().sorted()
-                .collect(Collectors.toList());
-
-        List<ArticleInfo> articleInfos = articles.stream()
-                .map(ArticleAssembler::toArticleInfo)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(articleInfos);
+    public ResponseEntity showUserArticles(@PathVariable String userNickname, int page) {
+        return ResponseEntity.ok(articleService.findArticlesByAuthorNickName(page, userNickname));
     }
 
-    @PostMapping("/{articleId}/like")
+    @PostMapping("/like/{articleId}")
     public ResponseEntity like(@PathVariable long articleId, @UserSession LoggedInUser loggedInUser) {
-        articleService.like(articleId, loggedInUser.getId());
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(articleService.like(articleId, loggedInUser.getId()));
     }
+
 
     @GetMapping("/{articleId}/liker")
     public ResponseEntity liker(@PathVariable long articleId) {
-        List<FileInfo> likerList = articleService.findLikerListById(articleId);
+        List<FollowInfo> likerList = articleService.findLikerListById(articleId);
         return ResponseEntity.ok(likerList);
     }
+
+
 }

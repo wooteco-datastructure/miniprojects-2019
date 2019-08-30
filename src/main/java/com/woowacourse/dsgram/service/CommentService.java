@@ -1,6 +1,5 @@
 package com.woowacourse.dsgram.service;
 
-import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.Comment;
 import com.woowacourse.dsgram.domain.repository.ArticleRepository;
 import com.woowacourse.dsgram.domain.repository.CommentRepository;
@@ -12,10 +11,10 @@ import com.woowacourse.dsgram.service.exception.EmptyCommentRequestException;
 import com.woowacourse.dsgram.service.exception.NotFoundArticleException;
 import com.woowacourse.dsgram.service.exception.NotFoundCommentException;
 import com.woowacourse.dsgram.service.exception.NotFoundUserException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class CommentService {
@@ -33,7 +32,7 @@ public class CommentService {
 
     public Comment create(CommentRequest commentRequest, Long userId) {
         if (isBlank(commentRequest.getContents())) {
-            throw new EmptyCommentRequestException();
+            throw new EmptyCommentRequestException("댓글의 내용을 입력해주세요.");
         }
         Comment comment = toComment(commentRequest, userId);
 
@@ -62,7 +61,7 @@ public class CommentService {
     @Transactional
     public CommentResponse update(Long commentId, CommentRequest commentRequest, LoggedInUser loggedInUser) {
         if (isBlank(commentRequest.getContents())) {
-            throw new EmptyCommentRequestException();
+            throw new EmptyCommentRequestException("댓글의 내용을 입력해주세요.");
         }
         Comment comment = commentRepository.findById(commentId).orElseThrow(NotFoundCommentException::new);
         comment.checkAccessibleAuthor(loggedInUser.getId());
@@ -70,8 +69,7 @@ public class CommentService {
         return new CommentResponse(commentRequest.getArticleId(), commentId, commentRequest.getContents());
     }
 
-    public List<Comment> get(Long articleId) {
-        Article article = articleRepository.findById(articleId).orElseThrow(NotFoundArticleException::new);
-        return commentRepository.findAllByArticle(article);
+    public Page<Comment> get(Long articleId, Pageable pageable) {
+        return commentRepository.findByArticle_Id(articleId, pageable);
     }
 }

@@ -16,7 +16,7 @@
                         <div class="myFeed-header">
                             <div clas="myFeed-info">
                                 <div class="user-image items">
-                                    <img src="https://c6oxm85c.cloudimg.io/cdno/n/q85/https://az617363.vo.msecnd.net/imgmodels/models/MD50000639/akiimaa500699922cd4a1412ddaa432873f29c_thumb.jpg"
+                                    <img src="/images/default/default_profile.png"
                                          th:class="'big-thumb-img-user-' + ${feedInfo.user.id}"
                                          alt="">
                                 </div>
@@ -24,6 +24,7 @@
                                     <div>
                                         <input id="guest" th:value="${session.sessionUser.nickName}" type="hidden">
                                         <span class="user-id mrg-right-10" id="feedOwner"
+                                              th:data-id="${feedInfo.user.id}"
                                               th:text="${feedInfo.user.nickName}"></span>
                                         <form th:if="${feedInfo.followRelation.name() == 'FOLLOW'}">
                                             <button class="btn btn-default" id="unfollow">언팔로우</button>
@@ -32,7 +33,6 @@
                                             <button class="btn btn-primary" id="follow">팔로우</button>
                                         </form>
                                         <span th:if="${feedInfo.followRelation.name() == 'MINE'}">
-                                            <button class="btn btn-default text-bold mrg-right-10">프로필 편집</button>
                                             <span>
                                             <div class="dropdown">
                                                 <a class="pointer active dropdown-toggle" data-toggle="dropdown"
@@ -54,15 +54,14 @@
                                     <br/>
                                     <div>
                                         <span>게시물</span>
-                                        <span class="text-bold mrg-right-20"
-                                              th:text="${feedInfo.articles.size()}"></span>
+                                        <span class="text-bold mrg-right-20" id="article-count"></span>
                                         <span>팔로워</span>
-                                        <span class="text-bold mrg-right-20" data-target="#follow-list"
+                                        <span class="pointer text-bold mrg-right-20" data-target="#follow-list"
                                               data-toggle="modal"
                                               id="followers" th:text="${feedInfo.followers}"></span>
 
                                         <span>팔로잉</span>
-                                        <span class="text-bold mrg-right-20" data-target="#follow-list"
+                                        <span class="pointer text-bold mrg-right-20" data-target="#follow-list"
                                               data-toggle="modal"
                                               id="followings" th:text="${feedInfo.followings}"></span>
                                     </div>
@@ -78,24 +77,15 @@
             </div>
         </div>
         <hr/>
-        <ul class="nav nav-tabs" style="text-align: center;">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-        </ul>
         <div class="main-content mrg-top-20">
             <div class="container-fluid max-width-lg mx-auto">
                 <div class="row">
                     <div class="col-lg-7 mx-auto">
-                        <button type="button" id="write-article-button" class="btn btn-outline-primary"
-                                accesskey="w">피드 작성
-                        </button>
-                        <div class="card widget-feed no-pdd mrg-btm-70" id="cards"
+                        <div id="cards">
 
                         </div>
+                        <div id="end"></div>
+                        <div class="height-50px"></div>
                     </div>
                 </div>
             </div>
@@ -133,22 +123,9 @@
         <script src="/js/follow.js"></script>
         <script src="/js/header.js"></script>
         <script src="/js/card.js"></script>
+        <script src="/js/observer.js"></script>
         <script src="/js/myFeed.js"></script>
     </th:block>
 
-    <!--    // todo 이거 두개 없으면 파일 안보임-->
-    <script src="/js/fetchApi.js"></script>
-    <script src="/js/fileLoadApi.js"></script>
-    <script th:inline="javascript">
-        // TODO 무한 스크롤로 변경 시 이동
-        // TODO feedInfo 객체가 user 객체를 가지고 있는게 맞을까? feedInfo 통해 user password 접근이 가능해짐
-        const userNickname = [[${feedInfo.user.nickName}]];
-        const userId = [[${feedInfo.user.id}]];
-        const myFeedLoader = MY_FEED_APP.myFeedService();
-        myFeedLoader.loadArticles(userNickname);
-
-        const fileLoader = FILE_LOAD_APP.FileLoadService();
-        fileLoader.loadProfileImageFile(fileLoader, userId, "big-thumb-img-user-")
-    </script>
 </th:block>
 </html>
