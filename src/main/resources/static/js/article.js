@@ -3,9 +3,7 @@ const ARTICLE_APP = (() => {
 
     const ArticleController = function () {
         const articleService = new ArticleService();
-        const loadArticles = articleService.loadArticles;
-        //todo 팔로우한 사람 글만 보이게 하는 jpa paging 쿼리문을 몰라서 일단 무한 스크롤은 적용 안 함
-        //const observer = OBSERVER_APP.observeService();
+
 
         const saveArticle = () => {
             const articleSaveButton = document.getElementById('save-button');
@@ -20,7 +18,6 @@ const ARTICLE_APP = (() => {
         const init = () => {
             saveArticle();
             showThumbnail();
-            loadArticles();
         };
 
         return {
@@ -30,10 +27,6 @@ const ARTICLE_APP = (() => {
 
     const ArticleService = function () {
         const connector = FETCH_APP.FetchApi();
-        const fileLoader = FILE_LOAD_APP.FileLoadService();
-        const template = TEMPLATE_APP.TemplateService();
-        const headerService = HEADER_APP.HeaderService();
-        const cards = document.getElementById('cards');
 
         const save = () => {
             const file = document.getElementById('file').value;
@@ -63,30 +56,12 @@ const ARTICLE_APP = (() => {
             reader.readAsDataURL(file);
         };
 
-        // TODO search-result.js와 중복!!
-        const loadArticles = () => {
-            const handleArticleInfo = articleInfo => {
-                cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
-                fileLoader.loadMediaFile(fileLoader, articleInfo.articleFileName, articleInfo.articleId);
-                fileLoader.loadProfileImageFile(fileLoader, articleInfo.userId, "thumb-img-user-");
-            };
 
-            const handleResponse = articleInfos => {
-                articleInfos.forEach(handleArticleInfo);
-                headerService.applyHashTag();
-            };
 
-            const addArticle = response => {
-                response.json()
-                    .then(handleResponse);
-            };
-            connector.fetchTemplateWithoutBody(`/api/articles`, connector.GET, addArticle);
-        };
 
         return {
             save: save,
             changeImageJustOnFront: changeImageJustOnFront,
-            loadArticles: loadArticles
         }
     };
 
