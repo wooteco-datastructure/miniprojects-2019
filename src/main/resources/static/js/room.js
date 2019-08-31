@@ -69,7 +69,7 @@ CHAT_APP = (() => {
             const a = document.getElementsByTagName('html')[0];
             a.scroll({
                 behavior: 'smooth',
-                top: a.offsetHeight * 2,
+                top: a.offsetHeight * a.offsetHeight,
             })
         };
 
