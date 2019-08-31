@@ -3,10 +3,10 @@ const INDEX_APP = (() => {
 
     const IndexController = function () {
         const indexService = new IndexService();
-        //const observer = OBSERVER_APP.observeService();
+        const observer = OBSERVER_APP.observeService();
 
         const init = () => {
-            indexService.loadArticles();
+            observer.loadByObserve(indexService.loadArticles);
         };
 
         return {
@@ -24,15 +24,15 @@ const INDEX_APP = (() => {
         const cards = document.getElementById('cards');
 
         // TODO search-result.js와 중복!!
-        const loadArticles = () => {
+        const loadArticles = page => {
             const handleArticleInfo = articleInfo => {
                 cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
                 fileLoader.loadMediaFile(fileLoader, articleInfo.articleFileName, articleInfo.articleId);
                 fileLoader.loadProfileImageFile(fileLoader, articleInfo.userId, "thumb-img-user-");
             };
 
-            const handleResponse = articleInfos => {
-                articleInfos.forEach(handleArticleInfo);
+            const handleResponse = data => {
+                data.content.forEach(handleArticleInfo);
                 headerService.applyHashTag();
             };
 
@@ -40,7 +40,7 @@ const INDEX_APP = (() => {
                 response.json()
                     .then(handleResponse);
             };
-            connector.fetchTemplateWithoutBody(`/api/articles`, connector.GET, addArticle);
+            connector.fetchTemplateWithoutBody(`/api/articles?page=${page}`, connector.GET, addArticle);
         };
 
         return {

@@ -9,11 +9,11 @@ import com.woowacourse.dsgram.service.dto.article.ArticleRequest;
 import com.woowacourse.dsgram.service.dto.follow.FollowInfo;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -53,9 +53,9 @@ public class ArticleApiController {
     }
 
     @GetMapping
-    public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser) {
-        List<Article> articles = articleService.getArticlesByFollowings(loggedInUser.getNickName());
-        List<ArticleInfo> articleInfos = articles.stream().map(article -> ArticleAssembler.toArticleInfo(article)).collect(Collectors.toList());
+    public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser, int page) {
+        Page<Article> articles = articleService.getArticlesByFollowings(loggedInUser.getNickName(), page);
+        Page<ArticleInfo> articleInfos = articles.map(article -> ArticleAssembler.toArticleInfo(article));
         return ResponseEntity.ok(articleInfos);
     }
 
