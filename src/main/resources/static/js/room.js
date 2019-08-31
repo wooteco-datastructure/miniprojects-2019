@@ -76,6 +76,7 @@ CHAT_APP = (() => {
         const connect = () => {
             const socket = new SockJS('/dm');
             stompClient = Stomp.over(socket);
+            stompClient.debug = null;
             stompClient.connect({}, () => {
                 stompClient.subscribe(`/topic/open/${roomCode}`, message => {
                     insertMessage(JSON.parse(message.body));
