@@ -2,50 +2,18 @@ const INDEX_APP = (() => {
     'use strict';
 
     const IndexController = function () {
-        const indexService = new IndexService();
+        const articleService = ARTICLE_APP.ArticleService();
         const observer = OBSERVER_APP.observeService();
+        const url = "/api/articles";
 
         const init = () => {
-            observer.loadByObserve(indexService.loadArticles);
+            observer.loadByObserve(articleService.loadArticlesFrom(url));
         };
 
         return {
             init: init,
         };
 
-    };
-
-    const IndexService = function () {
-        const connector = FETCH_APP.FetchApi();
-        const fileLoader = FILE_LOAD_APP.FileLoadService();
-        const template = TEMPLATE_APP.TemplateService();
-        const headerService = HEADER_APP.HeaderService();
-
-        const cards = document.getElementById('cards');
-
-        // TODO search-result.js와 중복!!
-        const loadArticles = page => {
-            const handleArticleInfo = articleInfo => {
-                cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
-                fileLoader.loadMediaFile(fileLoader, articleInfo.articleFileName, articleInfo.articleId);
-                fileLoader.loadProfileImageFile(fileLoader, articleInfo.userId, "thumb-img-user-");
-            };
-
-            const handleResponse = data => {
-                data.content.forEach(handleArticleInfo);
-                headerService.applyHashTag();
-            };
-
-            const addArticle = response => {
-                response.json()
-                    .then(handleResponse);
-            };
-            connector.fetchTemplateWithoutBody(`/api/articles?page=${page}`, connector.GET, addArticle);
-        };
-
-        return {
-            loadArticles: loadArticles,
-        };
     };
 
     const init = () => {

@@ -28,6 +28,7 @@ const ARTICLE_APP = (() => {
     const ArticleService = function () {
         const connector = FETCH_APP.FetchApi();
 
+
         const save = () => {
             const file = document.getElementById('file').value;
 
@@ -56,12 +57,42 @@ const ARTICLE_APP = (() => {
             reader.readAsDataURL(file);
         };
 
+        const fileLoader = FILE_LOAD_APP.FileLoadService();
+        const template = TEMPLATE_APP.TemplateService();
+        const headerService = HEADER_APP.HeaderService();
 
+        const cards = document.getElementById('cards');
+        const articleCount = document.getElementById('article-count');
 
+        const handleArticleInfo = articleInfo => {
+            cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
+            fileLoader.loadMediaFile(fileLoader, articleInfo.articleFileName, articleInfo.articleId);
+            fileLoader.loadProfileImageFile(fileLoader, articleInfo.userId, "thumb-img-user-");
+        };
+
+        const handleResponse = data => {
+            if (articleCount != null) {
+                articleCount.innerText = data.totalElements;
+            }
+            data.content.forEach(handleArticleInfo);
+            headerService.applyHashTag();
+        };
+
+        // TODO search-result.js와 중복!!
+        const loadArticlesFrom = (url) => {
+            return (page) => {
+                const addArticle = response => {
+                    response.json()
+                        .then(handleResponse);
+                }
+                connector.fetchTemplateWithoutBody(`${url}?page=${page}`, connector.GET, addArticle);
+            };
+        };
 
         return {
             save: save,
             changeImageJustOnFront: changeImageJustOnFront,
+            loadArticlesFrom: loadArticlesFrom,
         }
     };
 
@@ -71,7 +102,8 @@ const ARTICLE_APP = (() => {
     };
 
     return {
-        init: init
+        init: init,
+        ArticleService: ArticleService
     }
 })();
 
