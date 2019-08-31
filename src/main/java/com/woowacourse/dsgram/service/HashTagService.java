@@ -34,7 +34,7 @@ public class HashTagService {
     }
 
     public HashTagResponse findAllWithCountByQuery(String query) {
-        return new HashTagResponse(hashTagRepository.findResult(query));
+        return new HashTagResponse(hashTagRepository.findResult(query, PageRequest.of(0, 5)));
     }
 
     private void deleteAllByArticleId(long articleId) {
