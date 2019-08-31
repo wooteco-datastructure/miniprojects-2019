@@ -52,7 +52,7 @@ public class DsGramApplication {
             followRepository.save(follow);
 
             for (int i = 0; i < 18; i++) {
-                String contents = i + "#qwe";
+                String contents = "#qwe" + i;
                 Article article = Article.builder()
                         .author(user)
                         .contents(contents)
@@ -68,7 +68,7 @@ public class DsGramApplication {
             }
 
             for (int i = 0; i < 5; i++) {
-                String contents = i + "#hello";
+                String contents = "#hello" + i;
                 Article article = Article.builder()
                         .author(user2)
                         .contents(contents)
