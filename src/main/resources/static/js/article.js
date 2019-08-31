@@ -65,18 +65,21 @@ const ARTICLE_APP = (() => {
 
         // TODO search-result.js와 중복!!
         const loadArticles = () => {
-            const addArticle = response => {
-                response.json()
-                    .then(articleInfos => {
-                        articleInfos.forEach(articleInfo => {
-                            cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
-                            fileLoader.loadMediaFile(fileLoader, articleInfo.articleFileName, articleInfo.articleId);
-                            fileLoader.loadProfileImageFile(fileLoader, articleInfo.userId, "thumb-img-user-");
-                        });
-                        headerService.applyHashTag();
-                    });
+            const handleArticleInfo = articleInfo => {
+                cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
+                fileLoader.loadMediaFile(fileLoader, articleInfo.articleFileName, articleInfo.articleId);
+                fileLoader.loadProfileImageFile(fileLoader, articleInfo.userId, "thumb-img-user-");
             };
 
+            const handleResponse = articleInfos => {
+                articleInfos.forEach(handleArticleInfo);
+                headerService.applyHashTag();
+            };
+
+            const addArticle = response => {
+                response.json()
+                    .then(handleResponse);
+            };
             connector.fetchTemplateWithoutBody(`/api/articles`, connector.GET, addArticle);
         };
 
