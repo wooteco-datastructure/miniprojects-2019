@@ -22,7 +22,7 @@ public class DsGramApplication {
         return (args) -> {
 
             String homeDirectory = System.getProperty("user.dir");
-            String path = homeDirectory + "/" + "src/main/resources/static/images/default";
+            String path = "src/main/resources/static/images/default";
 
             FileInfo sampleImg1 = new FileInfo("sample_img_01.jpg", path);
             FileInfo sampleImg2 = new FileInfo("sample_img_02.jpg", path);
