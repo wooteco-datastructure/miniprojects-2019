@@ -1,15 +1,11 @@
 package com.woowacourse.dsgram.web.controller;
 
-import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.service.ArticleService;
-import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.dto.article.ArticleEditRequest;
-import com.woowacourse.dsgram.service.dto.article.ArticleInfo;
 import com.woowacourse.dsgram.service.dto.article.ArticleRequest;
 import com.woowacourse.dsgram.service.dto.follow.FollowInfo;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,9 +50,7 @@ public class ArticleApiController {
 
     @GetMapping
     public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser, int page) {
-        Page<Article> articles = articleService.getArticlesByFollowings(loggedInUser.getNickName(), page);
-        Page<ArticleInfo> articleInfos = articles.map(article -> ArticleAssembler.toArticleInfo(article));
-        return ResponseEntity.ok(articleInfos);
+        return ResponseEntity.ok(articleService.getArticlesByFollowings(loggedInUser.getNickName(), page));
     }
 
     @GetMapping("/users/{userNickname}")
