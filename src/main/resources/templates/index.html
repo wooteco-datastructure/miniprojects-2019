@@ -89,6 +89,23 @@
         </div>
     </div>
 
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="liker-list" role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="modal-head">
+                    <h5 class="modal-title text-center text-bold" id="likes"></h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="liker-info">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <th:block layout:fragment="script">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>

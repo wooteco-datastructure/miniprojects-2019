@@ -99,7 +99,7 @@ TEMPLATE_APP = (() => {
                                     <div class="feedback-status-container pdd-horizon-15">
                                         <img class="mini-profile-img" src="/images/default/eastjun_profile.jpg">
                                         <p class="no-mrg pdd-left-5 d-inline-block">
-                                            <span id="count-like-${articleInfo.articleId}" class="text-bold">${articleInfo.countOfLikes}</span>명이
+                                            <span id="count-like-${articleInfo.articleId}" class="count-like text-bold" data-target="#liker-list" data-toggle="modal">${articleInfo.countOfLikes}</span>명이
                                             좋아합니다.
                                         </p>
                                     </div>
@@ -126,13 +126,6 @@ TEMPLATE_APP = (() => {
                                 </div>`;
             return template;
         };
-
-        const heartState = (toggle) => {
-            if(toggle) {
-                return '<i class="fa fa-heart activated-heart font-size-25"></i>'
-            }
-            return '<i class="far fa-heart activated-heart font-size-25"></i>'
-        }
 
         const chatMessage = (message, sessionUserId) => {
             let template;
