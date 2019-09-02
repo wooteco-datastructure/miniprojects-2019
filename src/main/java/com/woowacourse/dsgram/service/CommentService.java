@@ -68,4 +68,8 @@ public class CommentService {
     public Page<Comment> get(Long articleId, Pageable pageable) {
         return commentRepository.findByArticleId(articleId, pageable);
     }
+
+    public long countByArticleId(long articleId) {
+        return commentRepository.countByArticleId(articleId);
+    }
 }

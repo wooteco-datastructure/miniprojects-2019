@@ -82,18 +82,12 @@ const TEMPLATE_APP = (() => {
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="/articles/${articleInfo.articleId}">
                                                 <i class="ti-comment font-size-22"></i>
                                             </a>
                                         </li>
                                         <li data-article=id="${articleInfo.articleId})" class="copyUrl" style="cursor:pointer;">
                                             <i class="ti-export font-size-22"></i>
-                                        </li>
-
-                                        <li class="float-right">
-                                            <a href="" class="pdd-right-0">
-                                                <i class="fa fa-bookmark font-size-25"></i>
-                                            </a>
                                         </li>
                                     </ul>
                                     <div class="feedback-status-container pdd-horizon-15">

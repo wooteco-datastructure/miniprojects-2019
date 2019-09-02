@@ -31,17 +31,17 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
-    private final CommentRepository commentRepository;
     private final LikeRelationRepository likeRelationRepository;
+    private final CommentService commentService;
     private final HashTagService hashTagService;
     private final FileService fileService;
     private final UserService userService;
     private final FollowService followService;
 
-    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository, LikeRelationRepository likeRelationRepository, HashTagService hashTagService
+    public ArticleService(ArticleRepository articleRepository, CommentService commentService, LikeRelationRepository likeRelationRepository, HashTagService hashTagService
             , FileService fileService, UserService userService, FollowService followService) {
         this.articleRepository = articleRepository;
-        this.commentRepository = commentRepository;
+        this.commentService = commentService;
         this.likeRelationRepository = likeRelationRepository;
         this.hashTagService = hashTagService;
         this.fileService = fileService;
@@ -73,11 +73,6 @@ public class ArticleService {
         return articleRepository
                 .findById(articleId)
                 .orElseThrow(() -> new EntityNotFoundException(articleId + "번 게시글을 조회하지 못했습니다."));
-    }
-
-    @Transactional(readOnly = true)
-    public List<Article> findAll() {
-        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
     }
 
     @Transactional
@@ -128,7 +123,7 @@ public class ArticleService {
     }
 
     private long getCountOfComments(long articleId) {
-        return commentRepository.countByArticleId(articleId);
+        return commentService.countByArticleId(articleId);
     }
 
     public Page<ArticleInfo> getArticlesByFollowings(long viewerId, int page) {
