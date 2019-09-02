@@ -1,7 +1,7 @@
 const CARD_APP = (() => {
 
-    const CardController = function () {
-        const cardService = new CardService();
+    const cardController = function () {
+        const cardService = new cardService();
 
         const cards = document.getElementById('cards');
 
@@ -33,7 +33,7 @@ const CARD_APP = (() => {
         }
     };
 
-    const CardService = function () {
+    const cardService = function () {
         const changeEditForm = event => {
             let target = event.target;
             if (target.tagName === 'I' || target.tagName === 'SPAN') {
@@ -158,7 +158,7 @@ const CARD_APP = (() => {
     };
 
     const init = () => {
-        const cardController = new CardController();
+        const cardController = new cardController();
         cardController.init();
     };
 
