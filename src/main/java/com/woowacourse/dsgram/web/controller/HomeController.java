@@ -16,18 +16,14 @@ import java.util.List;
 @Controller
 public class HomeController {
     private final UserService userService;
-    private final ArticleService articleService;
 
-    public HomeController(UserService userService, ArticleService articleService) {
+    public HomeController(UserService userService) {
         this.userService = userService;
-        this.articleService = articleService;
     }
 
     @GetMapping("/")
-    public String showMainPage(@UserSession LoggedInUser loggedInUser, Model model) {
-        List<Article> articles = articleService.getArticlesByFollowings(loggedInUser.getNickName());
+    public String showMainPage(Model model) {
         List<User> users = userService.findAll();
-        model.addAttribute("articles", articles);
         model.addAttribute("users", users);
         return "index";
     }
