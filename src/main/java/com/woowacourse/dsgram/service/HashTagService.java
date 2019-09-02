@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.woowacourse.dsgram.domain.HashTagSearchResult.LIMIT;
+import static com.woowacourse.dsgram.domain.HashTagSearchResult.START_PAGE;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -34,7 +36,7 @@ public class HashTagService {
     }
 
     public HashTagResponse findAllWithCountByQuery(String query) {
-        return new HashTagResponse(hashTagRepository.findResult(query));
+        return new HashTagResponse(hashTagRepository.findResult(query, PageRequest.of(START_PAGE, LIMIT)));
     }
 
     private void deleteAllByArticleId(long articleId) {

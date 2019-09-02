@@ -25,6 +25,24 @@
             </div>
         </div>
     </div>
+
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="liker-list" role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="modal-head">
+                    <h5 class="modal-title text-center text-bold" id="likes"></h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="liker-info">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
     <script src="/js/fetchApi.js"></script>
     <script src="/js/article.js"></script>
@@ -33,31 +51,21 @@
     <script src="/js/template.js"></script>
     <script src="/js/comment.js"></script>
     <script th:inline="javascript">
-        (function() {
+        (function () {
             const cards = document.getElementById('cards');
             const articleId = [[${articleId}]];
-
             const connector = FETCH_APP.FetchApi();
+            const fileLoader = FILE_LOAD_APP.FileLoadService();
+            const template = TEMPLATE_APP.TemplateService();
+
             connector.fetchTemplateWithoutBody(`/api/articles/${articleId}`, connector.GET,
                 (response) => {
-                    response.json().then(res => {
-                        const template = TEMPLATE_APP.TemplateService().card(res);
-                        cards.insertAdjacentHTML('afterbegin', template);
-                        articleFileLoad(res.articleFileName, res.articleId);
-                        userFileLoad(res.userFileName, res.userId);
-
+                    response.json().then(articleInfo => {
+                        cards.insertAdjacentHTML('beforeend', template.card(articleInfo));
+                        fileLoader.loadMediaFile(fileLoader, articleInfo.articleFileName, articleInfo.articleId)
+                        fileLoader.loadProfileImageFile(fileLoader, articleInfo.userId, 'thumb-img-user-');
                     });
                 });
-
-            const articleFileLoad = function (articleFileName, articleId) {
-                const fileLoader = FILE_LOAD_APP.FileLoadService();
-                fileLoader.loadMediaFile(fileLoader, articleFileName, articleId);
-            };
-
-            const userFileLoad = function (userFileName, userId) {
-                const fileLoader = FILE_LOAD_APP.FileLoadService();
-                fileLoader.loadProfileImageFile(fileLoader, userId, 'thumb-img-user-');
-            };
         })();
 
     </script>

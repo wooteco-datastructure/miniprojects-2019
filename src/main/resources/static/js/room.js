@@ -1,8 +1,8 @@
-CHAT_APP = (() => {
+const CHAT_APP = (() => {
 
     let stompClient = null;
 
-    const ChatController = function () {
+    const ChatController = function() {
         const chatService = new ChatService();
 
         const sendMessage = () => {
@@ -28,7 +28,7 @@ CHAT_APP = (() => {
         }
     };
 
-    const ChatService = function () {
+    const ChatService = function() {
         const connector = FETCH_APP.FetchApi();
         const template = TEMPLATE_APP.TemplateService();
 
@@ -69,13 +69,14 @@ CHAT_APP = (() => {
             const a = document.getElementsByTagName('html')[0];
             a.scroll({
                 behavior: 'smooth',
-                top: a.offsetHeight * 2,
+                top: a.offsetHeight * a.offsetHeight,
             })
         };
 
         const connect = () => {
             const socket = new SockJS('/dm');
             stompClient = Stomp.over(socket);
+            stompClient.debug = null;
             stompClient.connect({}, () => {
                 stompClient.subscribe(`/topic/open/${roomCode}`, message => {
                     insertMessage(JSON.parse(message.body));

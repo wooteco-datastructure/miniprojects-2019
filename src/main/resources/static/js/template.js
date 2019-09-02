@@ -1,24 +1,24 @@
-TEMPLATE_APP = (() => {
-    const TemplateService = function () {
+const TEMPLATE_APP = (() => {
+    const TemplateService = function() {
         const searchResult = hashTag => {
             const template =
                 `<li class="search-result-item">
-                                    <div class="row align-items-center margin-10">
-                                        <div class="col-2 text-center">
-                                            <p class="text-gray font-size-25 mrg-btm-0">#</p>
-                                        </div>
-                                        <div class="col-8">
-                                            <a href="/tags/${hashTag.keyword.substr(1)}" class="text-dark">
-                                                <div class="row">
-                                                    ${hashTag.keyword}
-                                                </div>
-                                                <div class="row text-gray">
-                                                    게시물 ${Intl.NumberFormat.call().format(hashTag.count)}
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>`;
+                    <div class="row align-items-center margin-10">
+                        <div class="col-2 text-center">
+                            <p class="text-gray font-size-25 mrg-btm-0">#</p>
+                        </div>
+                        <div class="col-8">
+                            <a href="/tags/${hashTag.keyword.substr(1)}" class="text-dark">
+                                <div class="row">
+                                    ${hashTag.keyword}
+                                </div>
+                                <div class="row text-gray">
+                                    게시물 ${Intl.NumberFormat.call().format(hashTag.count)}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>`;
             return template;
         };
 
@@ -43,7 +43,7 @@ TEMPLATE_APP = (() => {
                                                 <img class="thumb-img img-circle thumb-img-user-${articleInfo.userId}" src="/images/default/default_profile.png"
                                                       alt="">
                                                 <div class="info">
-                                                    <a href="" class="title no-pdd-vertical text-bold inline-block font-size-15">
+                                                    <a href="/users/${articleInfo.nickName}" class="title no-pdd-vertical text-bold inline-block font-size-15">
                                                         ${articleInfo.nickName}</a>
                                                 </div>
                                             </li>
@@ -78,32 +78,26 @@ TEMPLATE_APP = (() => {
                                         <li>
                                             <a> 
                                                 <input id="like-state-${articleInfo.articleId}" type="hidden" value="${articleInfo.like}">
-                                                <i class="fa ${articleInfo.like ? 'fa-heart' : 'fa-heart-o'} activated-heart font-size-25" style="display: block"></i>
+                                                <i class="fa ${articleInfo.likeState ? 'fa-heart' : 'fa-heart-o'} activated-heart font-size-25" style="display: block"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="/articles/${articleInfo.articleId}">
                                                 <i class="ti-comment font-size-22"></i>
                                             </a>
                                         </li>
                                         <li data-article=id="${articleInfo.articleId})" class="copyUrl" style="cursor:pointer;">
                                             <i class="ti-export font-size-22"></i>
                                         </li>
-
-                                        <li class="float-right">
-                                            <a href="" class="pdd-right-0">
-                                                <i class="fa fa-bookmark font-size-25"></i>
-                                            </a>
-                                        </li>
                                     </ul>
                                     <div class="feedback-status-container pdd-horizon-15">
                                         <img class="mini-profile-img" src="/images/default/eastjun_profile.jpg">
                                         <p class="no-mrg pdd-left-5 d-inline-block">
-                                            <span id="count-like-${articleInfo.articleId}" class="text-bold">${articleInfo.countOfLikes}</span>명이
+                                            <span id="count-like-${articleInfo.articleId}" class="count-like text-bold" data-target="#liker-list" data-toggle="modal">${articleInfo.countOfLikes}</span>명이
                                             좋아합니다.
                                         </p>
                                     </div>
-                                    <div id="'article-contents-${articleInfo.articleId}" class="feed-contents pdd-left-15">
+                                    <div id="article-contents-${articleInfo.articleId}" class="feed-contents pdd-left-15">
                                         <p class="contents">${articleInfo.contents}</p>
                                         <form style="display: none;">
                                             <input type="text" value="${articleInfo.contents}">
@@ -127,28 +121,21 @@ TEMPLATE_APP = (() => {
             return template;
         };
 
-        const heartState = (toggle) => {
-            if(toggle) {
-                return '<i class="fa fa-heart activated-heart font-size-25"></i>'
-            }
-            return '<i class="far fa-heart activated-heart font-size-25"></i>'
-        }
-
         const chatMessage = (message, sessionUserId) => {
             let template;
             if (message.from.id !== sessionUserId) {
                 template =
                     `<div class="incoming_msg">
-                <div class="incoming_msg_img">
-                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-                </div>
-                <div class="received_msg">
-                    <div>${message.from.nickName}</div>
-                    <div class="received_withd_msg">
-                      <p>${message.content}</p>
-                    </div>
-                </div>
-            </div>`;
+                        <div class="incoming_msg_img">
+                            <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                        </div>
+                        <div class="received_msg">
+                            <div>${message.from.nickName}</div>
+                            <div class="received_withd_msg">
+                              <p>${message.content}</p>
+                            </div>
+                        </div>
+                    </div>`;
                 return template;
             }
             template =

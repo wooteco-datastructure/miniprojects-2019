@@ -9,17 +9,15 @@ import com.woowacourse.dsgram.domain.repository.CommentRepository;
 import com.woowacourse.dsgram.domain.repository.LikeRelationRepository;
 import com.woowacourse.dsgram.service.assembler.ArticleAssembler;
 import com.woowacourse.dsgram.service.assembler.UserAssembler;
-import com.woowacourse.dsgram.service.dto.FeedInfo;
 import com.woowacourse.dsgram.service.dto.article.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.article.ArticleInfo;
 import com.woowacourse.dsgram.service.dto.article.ArticleRequest;
-import com.woowacourse.dsgram.service.dto.follow.FollowInfo;
-import com.woowacourse.dsgram.service.dto.follow.FollowRelation;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
+import com.woowacourse.dsgram.service.dto.user.UserInfo;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,17 +29,19 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
-    private final CommentRepository commentRepository;
     private final LikeRelationRepository likeRelationRepository;
+
+    @Autowired
+    private CommentService commentService;
+
     private final HashTagService hashTagService;
     private final FileService fileService;
     private final UserService userService;
     private final FollowService followService;
 
-    public ArticleService(ArticleRepository articleRepository, CommentRepository commentRepository, LikeRelationRepository likeRelationRepository, HashTagService hashTagService
+    public ArticleService(ArticleRepository articleRepository, LikeRelationRepository likeRelationRepository, HashTagService hashTagService
             , FileService fileService, UserService userService, FollowService followService) {
         this.articleRepository = articleRepository;
-        this.commentRepository = commentRepository;
         this.likeRelationRepository = likeRelationRepository;
         this.hashTagService = hashTagService;
         this.fileService = fileService;
@@ -75,11 +75,6 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException(articleId + "번 게시글을 조회하지 못했습니다."));
     }
 
-    @Transactional(readOnly = true)
-    public List<Article> findAll() {
-        return articleRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
-    }
-
     @Transactional
     public void update(long articleId, ArticleEditRequest articleEditRequest, LoggedInUser loggedInUser) {
         Article article = findById(articleId);
@@ -99,58 +94,43 @@ public class ArticleService {
         return fileService.readFileByFileInfo(findById(articleId).getFileInfo());
     }
 
-    public List<Article> findArticlesByAuthorNickName(String nickName) {
-        userService.findByNickName(nickName);
-        return articleRepository.findAllByAuthorNickNameOrderByCreatedDateDesc(nickName);
-    }
-
-    public Page<ArticleInfo> findArticlesByAuthorNickName(int page, String nickName) {
+    public Page<ArticleInfo> findArticlesByAuthorNickName(int page, String nickName, long viewerId) {
         userService.findByNickName(nickName);
         return articleRepository
                 .findAllByAuthorNickNameOrderByCreatedDateDesc(PageRequest.of(page, 10), nickName)
-                .map(article -> ArticleAssembler.toArticleInfo(article, getCountOfComments(article.getId()), getCountOfLikes(article.getId())));
+                .map(article -> findArticleInfo(article.getId(), viewerId));
     }
 
-    public ArticleInfo findArticleInfo(long articleId) {
+    public ArticleInfo findArticleInfo(long articleId, long viewerId) {
         long countOfComments = getCountOfComments(articleId);
         long countOfLikes = getCountOfLikes(articleId);
-        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments, countOfLikes);
+
+        return ArticleAssembler.toArticleInfo(findById(articleId), countOfComments,
+                countOfLikes, isLike(articleId, viewerId));
     }
 
     private long getCountOfLikes(long articleId) {
         return likeRelationRepository.countByArticleId(articleId);
     }
 
-    private long getCountOfComments(long articleId) {
-        return commentRepository.countByArticleId(articleId);
+    private boolean isLike(long articleId, long viewerId) {
+        return likeRelationRepository.existsByArticleIdAndUserId(articleId, viewerId);
     }
 
-    public List<Article> getArticlesByFollowings(String nickName) {
-        User user = userService.findByNickName(nickName);
+    private long getCountOfComments(long articleId) {
+        return commentService.countByArticleId(articleId);
+    }
+
+    public Page<ArticleInfo> getArticlesByFollowings(long viewerId, int page) {
+        User user = userService.findUserById(viewerId);
         List<User> followings = followService.findFollowings(user)
                 .stream().map(followInfo -> userService.findByNickName(followInfo.getNickName()))
                 .collect(toList());
+        Page<Article> articles = articleRepository.findByAuthorInOrderByCreatedDateDesc(PageRequest.of(page, 10), followings);
 
-        return findAll()
-                .stream().filter(article -> followings.contains(article.getAuthor()))
-                .collect(toList());
-    }
-
-    public FeedInfo getFeedInfo(String fromNickName, String toNickName) {
-        User guest = userService.findByNickName(fromNickName);
-        User feedOwner = userService.findByNickName(toNickName);
-        long followers = followService.getCountOfFollowers(feedOwner);
-        long followings = followService.getCountOfFollowings(feedOwner);
-        List<Article> articles = findArticlesByAuthorNickName(toNickName);
-        FollowRelation followRelation = followService.isFollowed(guest, feedOwner);
-
-        return FeedInfo.builder()
-                .user(feedOwner)
-                .followers(followers)
-                .followings(followings)
-                .articles(articles)
-                .followRelation(followRelation)
-                .build();
+        return articles.map(
+                article -> findArticleInfo(article.getId(), viewerId)
+        );
     }
 
     @Transactional
@@ -166,7 +146,7 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<FollowInfo> findLikerListById(long articleId) {
+    public List<UserInfo> findLikerListById(long articleId) {
         return likeRelationRepository.findAllByArticleId(articleId)
                 .stream().map(LikeRelation::getUser)
                 .map(UserAssembler::toFollowInfo)
