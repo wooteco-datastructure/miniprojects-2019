@@ -33,7 +33,7 @@
     <script src="/js/template.js"></script>
     <script src="/js/comment.js"></script>
     <script th:inline="javascript">
-        (function() {
+        (() => {
             const cards = document.getElementById('cards');
             const articleId = [[${articleId}]];
 
@@ -49,12 +49,12 @@
                     });
                 });
 
-            const articleFileLoad = function (articleFileName, articleId) {
+            const articleFileLoad = (articleFileName, articleId) => {
                 const fileLoader = FILE_LOAD_APP.FileLoadService();
                 fileLoader.loadMediaFile(fileLoader, articleFileName, articleId);
             };
 
-            const userFileLoad = function (userFileName, userId) {
+            const userFileLoad = (userFileName, userId) => {
                 const fileLoader = FILE_LOAD_APP.FileLoadService();
                 fileLoader.loadProfileImageFile(fileLoader, userId, 'thumb-img-user-');
             };
