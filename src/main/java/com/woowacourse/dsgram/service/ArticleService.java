@@ -17,6 +17,7 @@ import com.woowacourse.dsgram.service.dto.follow.FollowRelation;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.dto.user.UserInfo;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -32,16 +33,18 @@ import static java.util.stream.Collectors.toList;
 public class ArticleService {
     private final ArticleRepository articleRepository;
     private final LikeRelationRepository likeRelationRepository;
-    private final CommentService commentService;
+
+    @Autowired
+    private CommentService commentService;
+
     private final HashTagService hashTagService;
     private final FileService fileService;
     private final UserService userService;
     private final FollowService followService;
 
-    public ArticleService(ArticleRepository articleRepository, CommentService commentService, LikeRelationRepository likeRelationRepository, HashTagService hashTagService
+    public ArticleService(ArticleRepository articleRepository, LikeRelationRepository likeRelationRepository, HashTagService hashTagService
             , FileService fileService, UserService userService, FollowService followService) {
         this.articleRepository = articleRepository;
-        this.commentService = commentService;
         this.likeRelationRepository = likeRelationRepository;
         this.hashTagService = hashTagService;
         this.fileService = fileService;

@@ -43,7 +43,7 @@ const TEMPLATE_APP = (() => {
                                                 <img class="thumb-img img-circle thumb-img-user-${articleInfo.userId}" src="/images/default/default_profile.png"
                                                       alt="">
                                                 <div class="info">
-                                                    <a href="" class="title no-pdd-vertical text-bold inline-block font-size-15">
+                                                    <a href="/users/${articleInfo.nickName}" class="title no-pdd-vertical text-bold inline-block font-size-15">
                                                         ${articleInfo.nickName}</a>
                                                 </div>
                                             </li>
