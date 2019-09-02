@@ -59,7 +59,7 @@ public class ArticleApiController {
         return ResponseEntity.ok(articleService.findArticlesByAuthorNickName(page, userNickname, loggedInUser.getId()));
     }
 
-    @PostMapping("/like/{articleId}")
+    @PostMapping("/{articleId}/like")
     public ResponseEntity like(@PathVariable long articleId, @UserSession LoggedInUser loggedInUser) {
         return ResponseEntity.ok(articleService.like(articleId, loggedInUser.getId()));
     }
