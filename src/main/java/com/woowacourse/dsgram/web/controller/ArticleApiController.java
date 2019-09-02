@@ -49,9 +49,8 @@ public class ArticleApiController {
     }
 
     @GetMapping
-    public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser) {
-
-        return ResponseEntity.ok(articleService.getArticlesByFollowings(loggedInUser.getNickName(), loggedInUser.getId()));
+    public ResponseEntity showArticles(@UserSession LoggedInUser loggedInUser, int page) {
+        return ResponseEntity.ok(articleService.getArticlesByFollowings(loggedInUser.getId(), page));
     }
 
     @GetMapping("/users/{userNickname}")
@@ -63,13 +62,10 @@ public class ArticleApiController {
     public ResponseEntity like(@PathVariable long articleId, @UserSession LoggedInUser loggedInUser) {
         return ResponseEntity.ok(articleService.like(articleId, loggedInUser.getId()));
     }
-
-
+    
     @GetMapping("/{articleId}/liker")
     public ResponseEntity liker(@PathVariable long articleId) {
         List<FollowInfo> likerList = articleService.findLikerListById(articleId);
         return ResponseEntity.ok(likerList);
     }
-
-
 }
