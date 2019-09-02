@@ -4,9 +4,7 @@ import com.woowacourse.dsgram.domain.Article;
 import com.woowacourse.dsgram.domain.Comment;
 import com.woowacourse.dsgram.domain.FileInfo;
 import com.woowacourse.dsgram.domain.User;
-import com.woowacourse.dsgram.domain.repository.ArticleRepository;
 import com.woowacourse.dsgram.domain.repository.CommentRepository;
-import com.woowacourse.dsgram.domain.repository.UserRepository;
 import com.woowacourse.dsgram.service.dto.CommentRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Optional;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
