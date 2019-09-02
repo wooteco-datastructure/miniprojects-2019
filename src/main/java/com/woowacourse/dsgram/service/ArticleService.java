@@ -13,7 +13,7 @@ import com.woowacourse.dsgram.service.dto.FeedInfo;
 import com.woowacourse.dsgram.service.dto.article.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.article.ArticleInfo;
 import com.woowacourse.dsgram.service.dto.article.ArticleRequest;
-import com.woowacourse.dsgram.service.dto.follow.FollowInfo;
+import com.woowacourse.dsgram.service.dto.user.UserInfo;
 import com.woowacourse.dsgram.service.dto.follow.FollowRelation;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.service.strategy.ArticleFileNamingStrategy;
@@ -131,8 +131,8 @@ public class ArticleService {
         return commentRepository.countByArticleId(articleId);
     }
 
-    public Page<ArticleInfo> getArticlesByFollowings(String nickName, int page, long viewerId) {
-        User user = userService.findByNickName(nickName);
+    public Page<ArticleInfo> getArticlesByFollowings(long viewerId, int page) {
+        User user = userService.findUserById(viewerId);
         List<User> followings = followService.findFollowings(user)
                 .stream().map(followInfo -> userService.findByNickName(followInfo.getNickName()))
                 .collect(toList());
@@ -173,7 +173,7 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<FollowInfo> findLikerListById(long articleId) {
+    public List<UserInfo> findLikerListById(long articleId) {
         return likeRelationRepository.findAllByArticleId(articleId)
                 .stream().map(LikeRelation::getUser)
                 .map(UserAssembler::toFollowInfo)

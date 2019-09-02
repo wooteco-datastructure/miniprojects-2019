@@ -3,7 +3,7 @@ package com.woowacourse.dsgram.web.controller;
 import com.woowacourse.dsgram.service.ArticleService;
 import com.woowacourse.dsgram.service.dto.article.ArticleEditRequest;
 import com.woowacourse.dsgram.service.dto.article.ArticleRequest;
-import com.woowacourse.dsgram.service.dto.follow.FollowInfo;
+import com.woowacourse.dsgram.service.dto.user.UserInfo;
 import com.woowacourse.dsgram.service.dto.user.LoggedInUser;
 import com.woowacourse.dsgram.web.argumentresolver.UserSession;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +65,7 @@ public class ArticleApiController {
     
     @GetMapping("/{articleId}/liker")
     public ResponseEntity liker(@PathVariable long articleId) {
-        List<FollowInfo> likerList = articleService.findLikerListById(articleId);
+        List<UserInfo> likerList = articleService.findLikerListById(articleId);
         return ResponseEntity.ok(likerList);
     }
 }
