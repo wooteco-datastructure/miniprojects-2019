@@ -1,7 +1,7 @@
 const MY_FEED_APP = (() => {
     'use strict';
 
-    const myFeedController = function () {
+    const myFeedController = () => {
         const myFeedService = new myFeedService();
         const observer = OBSERVER_APP.observeService();
 
@@ -16,7 +16,7 @@ const MY_FEED_APP = (() => {
 
     };
 
-    const myFeedService = function () {
+    const myFeedService = () => {
         const connector = FETCH_APP.FetchApi();
         const fileLoader = FILE_LOAD_APP.FileLoadService();
         const template = TEMPLATE_APP.TemplateService();

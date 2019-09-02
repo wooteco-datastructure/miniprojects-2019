@@ -1,7 +1,7 @@
 const ARTICLE_APP = (() => {
     'use strict';
 
-    const ArticleController = function () {
+    const ArticleController = () => {
         const articleService = new ArticleService();
         const loadArticles = articleService.loadArticles;
         //todo 팔로우한 사람 글만 보이게 하는 jpa paging 쿼리문을 몰라서 일단 무한 스크롤은 적용 안 함
@@ -28,7 +28,7 @@ const ARTICLE_APP = (() => {
         }
     };
 
-    const ArticleService = function () {
+    const ArticleService = () => {
         const connector = FETCH_APP.FetchApi();
         const fileLoader = FILE_LOAD_APP.FileLoadService();
         const template = TEMPLATE_APP.TemplateService();

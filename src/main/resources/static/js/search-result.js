@@ -1,6 +1,6 @@
 const SEARCH_APP = (() => {
 
-    const SearchController = function () {
+    const SearchController = () => {
         const searchService = new SearchService();
         const observer = OBSERVER_APP.observeService();
 
@@ -13,7 +13,7 @@ const SEARCH_APP = (() => {
         }
     };
 
-    const SearchService = function () {
+    const SearchService = () => {
         const headerService = HEADER_APP.HeaderService();
         const connector = FETCH_APP.FetchApi();
         const fileLoader = FILE_LOAD_APP.FileLoadService();

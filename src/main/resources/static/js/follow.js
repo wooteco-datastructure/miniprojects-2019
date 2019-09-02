@@ -1,7 +1,7 @@
 const FOLLOW_APP = (() => {
 
-    const followController = function () {
-        const followService = new followService();
+    const FollowController = () => {
+        const followService = new FollowService();
 
         const follow = () => {
             const followButton = document.getElementById('follow');
@@ -35,7 +35,7 @@ const FOLLOW_APP = (() => {
         }
     };
 
-    const followService = function () {
+    const FollowService = () => {
         const connector = FETCH_APP.FetchApi();
         const header = {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -107,7 +107,7 @@ const FOLLOW_APP = (() => {
     };
 
     const init = () => {
-        const followController = new followController();
+        const followController = new FollowController();
         followController.init();
     };
 
