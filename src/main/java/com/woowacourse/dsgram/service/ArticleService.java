@@ -151,8 +151,8 @@ public class ArticleService {
     }
 
     public LikeResponse findLikeStatus(long articleId, long viewerId) {
-        long countOfLikes = likeRelationRepository.countByArticleId(articleId);
-        boolean likeStatus = likeRelationRepository.existsByArticleIdAndUserId(articleId, viewerId);
+        long countOfLikes = getCountOfLikes(articleId);
+        boolean likeStatus = isLike(articleId, viewerId);
 
         return new LikeResponse(countOfLikes, likeStatus);
     }
