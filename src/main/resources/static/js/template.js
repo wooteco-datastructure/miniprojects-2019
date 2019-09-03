@@ -77,8 +77,7 @@ const TEMPLATE_APP = (() => {
                                     <ul class="feed-action pdd-horizon-15 pdd-top-5">
                                         <li>
                                             <a> 
-                                                <input id="like-state-${articleInfo.articleId}" type="hidden" value="${articleInfo.like}">
-                                                <i class="fa ${articleInfo.likeState ? 'fa-heart' : 'fa-heart-o'} activated-heart font-size-25" style="display: block"></i>
+                                                <i id="like-state-${articleInfo.articleId}" class="fa fa-heart activated-heart font-size-25" style="display: block"></i>
                                             </a>
                                         </li>
                                         <li>
@@ -105,7 +104,7 @@ const TEMPLATE_APP = (() => {
                                             <button type="button">수정</button>
                                         </form>
                                     </div>
-                                    <div class="feed-footer">
+                                    <div class="feed-footer" id="article-footer-${articleInfo.articleId}">
                                         <div class="comment" data-article-id="${articleInfo.articleId}">
                                             <span class="show-comment mrg-left-10" data-count-comment="${articleInfo.countOfComments}"><span class="count-of-comments">${articleInfo.countOfComments}</span>개 댓글 더보기</span>
                                             <ul class="list-unstyled list-info pdd-horizon-5"></ul>

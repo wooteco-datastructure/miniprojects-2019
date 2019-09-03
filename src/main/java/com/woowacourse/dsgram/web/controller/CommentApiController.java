@@ -34,7 +34,6 @@ public class CommentApiController {
         return ResponseEntity.ok().build();
     }
 
-    // todo : 기능은 만들었지만 실제 사용하지는 않고 있음.
     @PutMapping("/{commentId}")
     public ResponseEntity update(@PathVariable("commentId") Long commentId, @UserSession LoggedInUser loggedInUser,
                                  @RequestBody CommentRequest commentRequest) {
@@ -48,4 +47,11 @@ public class CommentApiController {
         Page<Comment> comments = commentService.get(articleId, pageable);
         return ResponseEntity.ok(comments);
     }
+
+    @GetMapping("/{articleId}/counts")
+    public ResponseEntity getCountOfComments(@PathVariable("articleId") Long articleId) {
+        Long countOfComments = commentService.countByArticleId(articleId);
+        return ResponseEntity.ok(countOfComments);
+    }
+
 }
