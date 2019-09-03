@@ -1,7 +1,9 @@
 package com.woowacourse.dsgram.service.dto;
 
-public class LikeResponse {
+import lombok.Getter;
 
+@Getter
+public class LikeResponse {
     private long countOfLikes;
     private boolean likeState;
 
