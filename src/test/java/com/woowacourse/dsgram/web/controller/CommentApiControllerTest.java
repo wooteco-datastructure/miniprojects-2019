@@ -63,7 +63,7 @@ class CommentApiControllerTest extends AbstractControllerTest {
                 .expectStatus()
                 .isOk()
                 .expectBody()
-                .consumeWith(document("comment/post/write",
+                .consumeWith(document("comments/post/write",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint())
                 ));
@@ -78,7 +78,7 @@ class CommentApiControllerTest extends AbstractControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .consumeWith(document("comment/delete/deleteComment",
+                .consumeWith(document("comments/delete/deleteComment",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint())
                 ));
@@ -119,7 +119,7 @@ class CommentApiControllerTest extends AbstractControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .consumeWith(document("comment/put/update",
+                .consumeWith(document("comments/put/update",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint())
                 ));
@@ -162,7 +162,7 @@ class CommentApiControllerTest extends AbstractControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .consumeWith(document("comment/get/comments",
+                .consumeWith(document("comments/get/comments",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint())
                 ));
